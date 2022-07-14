@@ -6,6 +6,7 @@ import Explore from "./pages/Explore";
 import Travels from "./pages/Travels";
 import Profile from "./pages/Profile";
 import LoginForm from "./pages/LoginForm";
+import AppCss from "./styles/App.css";
 
 function App() {
   return (
