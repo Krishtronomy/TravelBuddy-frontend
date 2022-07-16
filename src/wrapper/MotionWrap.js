@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+// Create MotionWrapper; ensures smooth animations on each component. Also ensures animations play on component reload
 const MotionWrap = (Component, classNames) =>
 	function HOC() {
 		return (
