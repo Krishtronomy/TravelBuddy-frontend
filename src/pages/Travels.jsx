@@ -25,7 +25,10 @@ const Travels = () => {
 
 async function getPosts(){
   const response = await postAPI.get('/posts')
-  console.log(response.data[0].title)
+  for (const property in response.data) {
+    console.log(`${property}: ${response.data[property]}`);
+  }
+  
 }
 
 getPosts()
