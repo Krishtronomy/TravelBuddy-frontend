@@ -1,21 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Travels.scss";
-import NewPost from './NewPost';
+import NewPost from "./NewPost";
+import postAPI from "../../config/api";
 
 const Travels = () => {
-  const [posts, setPosts] = useState([
-    {title: "My first post", description: "check out this post", id: 1},
-    {title: "Hey fam", description: "cool stuff going on", id: 2},
-    {title: "Hey again homies", description: "new udpates coming soon", id: 3}
-  ])
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState([true])
+  const [error, setError] = useState(null)
+
+  // Fetch posts from backend API
+  async function getPosts() {
+    const response = await postAPI.get("/posts");
+    if(response.statusText =! "OK"){
+      throw Error("Could not fetch the data for that resource")
+    }
+    return response.data;
+  }
+
+  // Set post state 
+  useEffect(() => {
+    getPosts().then((response) => {
+      setPosts(response);
+      setIsLoading(false)
+      setError(null)
+    })
+    .catch(error => {
+      setIsLoading(false)
+      setError(error.message)
+    })
+  }, []);
+
+
   return (
     <>
       <h1>Travels page</h1>
-      <NewPost/>
+      <NewPost />
 
       <div>
+        <div>{error && error}</div>
+        {isLoading && <div> Loading... </div> }
         {posts.map((post) => (
           <div key={post.id}>
             <h2>{post.title}</h2>

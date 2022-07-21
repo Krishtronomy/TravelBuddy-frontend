@@ -31,7 +31,6 @@ async function getPosts(){
   
 }
 
-getPosts()
 
   return (
     <>
