@@ -8,7 +8,7 @@ import {
   Link
 } from "react-router-dom";
 import { Home, Explore, Travels, Profile, Login } from "./pages";
-// import TravelPostDetails from "./pages/Travels/TravelPostDetails";
+import TravelPostDetails from "./pages/Travels/TravelPostDetails";
 
 // import Home from "./pages/Home/Home";
 // import Explore from "./pages/Explore/Explore";
