@@ -11,6 +11,7 @@ const Travels = () => {
   const [isLoading, setIsLoading] = useState([true]);
   const [error, setError] = useState(null);
   // const navigate  = useNavigate()
+  
 
   // Fetch posts from backend API
   async function getPosts() {
