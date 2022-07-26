@@ -5,6 +5,7 @@ import "./Travels.scss";
 import NewPost from "./NewPost";
 import postAPI from "../../config/api";
 import { Link, useNavigate } from "react-router-dom";
+import placeholder from "./placeholder.jpg"
 
 const Travels = () => {
   const [posts, setPosts] = useState([]);
@@ -53,6 +54,7 @@ const Travels = () => {
             <div className="BlogDetails">
             <Link to={`/posts/${post.id}`}>
               <h2>{post.title}</h2>
+              <img src={placeholder} style={{width: 300, height: 250}}/>
               <p>{post.description}</p>
             </Link>
             </div>
