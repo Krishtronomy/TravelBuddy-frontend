@@ -2,8 +2,8 @@ import React from "react";
 // import Navigation from "./components/Navbar/Navigation";
 import { Navbar } from "./components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-import { Home, Explore, Travels, Profile, Login } from "./pages";
+import { Home, Explore, Travels, Profile, LoginForm } from "./pages";
+import TravelPostDetails from "./pages/Travels/TravelPostDetails";
 
 // import Home from "./pages/Home/Home";
 // import Explore from "./pages/Explore/Explore";
@@ -34,13 +34,19 @@ import "./App.scss";
 // }
 
 const App = () => (
-	<div className="app">
-		<Navbar />
-		<Home />
-		<Explore />
-		<Travels />
-		<Profile />
-	</div>
+  <div className="app">
+    <Router>
+      <Navbar />
+      <Home />
+      <Explore />
+      <Travels />
+      <Profile />
+      <LoginForm />
+      <Routes>
+        <Route exact path="/posts/:id" element={<TravelPostDetails />} />
+      </Routes>
+    </Router>
+  </div>
 );
 
 export default App;
