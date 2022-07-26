@@ -1,13 +1,8 @@
 import React from "react";
 // import Navigation from "./components/Navbar/Navigation";
 import { Navbar } from "./components";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
-import { Home, Explore, Travels, Profile, Login } from "./pages";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Home, Explore, Travels, Profile, LoginForm } from "./pages";
 import TravelPostDetails from "./pages/Travels/TravelPostDetails";
 
 // import Home from "./pages/Home/Home";
@@ -46,6 +41,7 @@ const App = () => (
       <Explore />
       <Travels />
       <Profile />
+      <LoginForm />
       <Routes>
         <Route exact path="/posts/:id" element={<TravelPostDetails />} />
       </Routes>
