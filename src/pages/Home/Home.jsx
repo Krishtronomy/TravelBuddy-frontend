@@ -11,4 +11,8 @@ const Home = () => {
     )
 }
 
-export default AppWrap(Home, "home");
+export default AppWrap(
+	MotionWrap(Home, "app__home"),
+	"home",
+	"app__whitebg"
+);

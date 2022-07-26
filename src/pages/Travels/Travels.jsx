@@ -65,4 +65,8 @@ const Travels = () => {
   );
 };
 
-export default AppWrap(Travels, "travels");
+export default AppWrap(
+	MotionWrap(Travels, "app__travels"),
+	"travels",
+	"app__whitebg"
+);

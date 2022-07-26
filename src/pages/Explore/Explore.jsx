@@ -17,4 +17,8 @@ const Explore = () => {
 	);
 };
 
-export default AppWrap(Explore, "explore");
+export default AppWrap(
+	MotionWrap(Explore, "app__explore"),
+	"explore",
+	"app__primarybg"
+);
