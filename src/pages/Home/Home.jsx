@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from "framer-motion";
+
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Home.scss";
+import Header from "../../components/Map/Header/Header";
 
 const Home = () => {
     return (
