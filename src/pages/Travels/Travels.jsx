@@ -5,14 +5,13 @@ import "./Travels.scss";
 import NewPost from "./NewPost";
 import postAPI from "../../config/api";
 import { Link, useNavigate } from "react-router-dom";
-import placeholder from "./placeholder.jpg"
+import placeholder from "./placeholder.jpg";
 
 const Travels = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState([true]);
   const [error, setError] = useState(null);
   // const navigate  = useNavigate()
-  
 
   // Fetch posts from backend API
   async function getPosts() {
@@ -41,6 +40,8 @@ const Travels = () => {
     postAPI.delete(`/posts/${id}`);
   };
 
+  console.log(posts[1]);
+
   return (
     <>
       <h1>Travels page</h1>
@@ -52,12 +53,21 @@ const Travels = () => {
         {posts.map((post) => (
           <div className="blogPost" key={post.id}>
             <div className="BlogDetails">
-            <Link to={`/posts/${post.id}`}>
-              <h2>{post.title}</h2>
-              
-              {post.image.url && <img src={post.image.url} style={{width: 300, height: 250}}/>}
-              <p>{post.description}</p>
-            </Link>
+              <Link to={`/posts/${post.id}`}>
+                <h2>{post.title}</h2>
+                {/* If a post has a image then render the URL for the image */}
+                {post.image && (
+                  <img
+                    src={post.image.url}
+                    style={{ width: 300, height: 250 }}
+                  />
+                )}
+                {/* Else if a post has no image then render a placeholder image */}
+                {!post.image && (
+                  <img src={placeholder} style={{ width: 300, height: 250 }} />
+                )}
+                <p>{post.description}</p>
+              </Link>
             </div>
 
             {/* <button className="deleteButton" onClick={deletePost}>delete</button> */}
