@@ -54,7 +54,8 @@ const Travels = () => {
             <div className="BlogDetails">
             <Link to={`/posts/${post.id}`}>
               <h2>{post.title}</h2>
-              <img src={placeholder} style={{width: 300, height: 250}}/>
+              
+              {post.image.url && <img src={post.image.url} style={{width: 300, height: 250}}/>}
               <p>{post.description}</p>
             </Link>
             </div>
