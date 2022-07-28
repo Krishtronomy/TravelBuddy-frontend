@@ -9,10 +9,12 @@ import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Travels.scss";
 import postAPI from "../../config/api";
+import axios from "axios";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -24,22 +26,40 @@ const NewPost = () => {
     setDescription(event.target.value);
   };
 
+  const handleImageChange = (event) => {
+    setImage({image: event.target.files[0]})
+  }
+
+  const config = {     
+    headers: { 'Content-Type': 'multipart/form-data' }
+}
+
+
   //   Submit new post
   const handleSubmit = (event) => {
     event.preventDefault();
-    const post = { title, description };
+    // const post = { title, description };
+    const formData = new FormData()
+    formData.append('post[title]', title)
+    formData.append('post[description]', description)
+    formData.append('post[image]', image.image)
     setIsLoading(true);
-    postAPI.post("/create", post);
+    // postAPI.post("/create", post);
+    postAPI.post("/create", formData, config);
+    
     setIsLoading(false);
     cleanForm()
-    navigate("/");
+    // navigate("/");
+  
   };
+
 
 // Clean form after submitting
 const cleanForm = () => {
     setTitle("")
     setDescription("")
 }
+
 
   return (
     <>
@@ -56,7 +76,7 @@ const cleanForm = () => {
           <label>Description:</label>
           <textarea required value={description} onChange={handleDescriptionChange}></textarea>
           <label>Add Image:</label>
-          <input className="file" type="file" />
+          <input className="file" type="file" accept="image/*" multiple={false} onChange={handleImageChange}/>
           {!isLoading && <button >Submit</button>}
           {isLoading && <button disabled>Submitting Post...</button>}
         </form>
