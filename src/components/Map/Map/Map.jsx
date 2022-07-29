@@ -11,12 +11,13 @@ const coordinates = { lat: 0, lng: 0 };
 const Map = () => {
     const classes = useStyles();
     const isMobile = useMediaQuery('(min-width:600px)');
+    const coordinates = { lat: 0, lng: 0 };
 
 	return (
         <div className={classes.mapContainer}>
             <h1>Map</h1>    
-                {/* <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyCrg_n2lwPuSDiwcBV9XpXrVZhvTk6uSQY"}}
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: 'AIzaSyCIOvPLN20q8N_wfVi3Jwlov9SZ12OxChc'}}
                     defaultCenter={coordinates}
                     center={coordinates}
                     defaultZoom={14}
@@ -26,7 +27,7 @@ const Map = () => {
                     onChildClick={""}
                 >
 
-                </GoogleMapReact> */}
+                </GoogleMapReact>
         </div>
     );
 };
