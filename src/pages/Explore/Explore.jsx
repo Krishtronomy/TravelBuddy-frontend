@@ -13,8 +13,47 @@ const Explore = () => {
 	return (
 		<>
 			<h1>Explore page</h1>
+				<>
+					<CssBaseline />
+					<Header />
+					<Grid container spacing={3} style={{ width: '100%' }}>
+						<Grid item xs={12} md={4}>
+							<List />
+						</Grid>
+						<Grid item xs={12} md={8}>
+							<Map />
+						</Grid>
+					</Grid>
+				</>
 		</>
 	);
 };
 
-export default AppWrap(Explore, "explore");
+// class Explore extends React.Component {
+//     render() {
+//         return (
+// 		<>
+// 			<h1>Explore page</h1>
+// 				<>
+// 					<CssBaseline />
+// 					<Header />
+// 					<Grid container spacing={3} style={{ width: '100%' }}>
+// 						<Grid item xs={12} md={4}>
+// 							<List />
+// 						</Grid>
+// 						<Grid item xs={12} md={8}>
+// 							<Map />
+// 							<Header />
+// 						</Grid>
+// 					</Grid>
+// 				</>
+// 		</>
+// 		);
+// 	}
+// }
+
+export default AppWrap(
+	MotionWrap(Explore, "app__explore"),
+	"explore",
+	"app__primarybg"
+);
