@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./LoginForm.scss";
 import postAPI from "../../config/api";
+import Profile from "../Profile/Profile";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,10 @@ const LoginForm = () => {
     sessionStorage.getItem("user") || null
   );
   const [loginError, setLoginError] = useState(null);
+  const [userInfo, setUserInfo] = useState(
+    sessionStorage.getItem("about") || null
+  );
+
 
   //   Set email state to user typed entry on input form
   const emailChangeHandler = (event) => {
@@ -22,7 +27,7 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-//   Sets sign in details and verifies with the database if details are correct 
+  //   Sets sign in details and verifies with the database if details are correct
   const submitFormHandler = (event) => {
     event.preventDefault();
     const login = { email, password };
@@ -31,7 +36,9 @@ const LoginForm = () => {
       .then((response) => {
         sessionStorage.setItem("token", response.data.jwt);
         sessionStorage.setItem("user", response.data.username);
+        sessionStorage.setItem("about", response.data.about);
         setLoggedInUser(response.data.username);
+        setUserInfo(response.data.about)
         setEmail("");
         setPassword("");
         setLoginError(null);
@@ -41,15 +48,17 @@ const LoginForm = () => {
       });
   };
 
-//   Handles signing out
+  //   Handles signing out
   const signOutHandler = () => {
     sessionStorage.clear();
     setLoggedInUser(null);
   };
+
   return (
     <>
-      <h1>Login Page</h1>
-      {loggedInUser && <h3>Logged in: {loggedInUser}</h3>}
+    {/* Renders login or user welcome depending if user is logged in or not */}
+      {!loggedInUser && <h1>Login Page</h1>}
+      {loggedInUser && <h3>Hello {loggedInUser}!</h3>}
       {loggedInUser && <button onClick={signOutHandler}>Sign Out</button>}
       <div>
         <form onSubmit={submitFormHandler}>
