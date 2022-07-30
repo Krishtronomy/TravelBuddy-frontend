@@ -4,6 +4,7 @@ import { AppWrap, MotionWrap } from "../../wrapper";
 import "./LoginForm.scss";
 import postAPI from "../../config/api";
 import Profile from "../Profile/Profile";
+import SignUp from "./SignUp";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -81,6 +82,7 @@ const LoginForm = () => {
           )}
         </form>
       </div>
+     {!loggedInUser &&  <SignUp/>}
     </>
   );
 };
