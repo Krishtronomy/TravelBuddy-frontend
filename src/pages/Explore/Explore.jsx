@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
-import { getPlacesData, getWeatherData } from "../../config/TravelApi";
-import { motion } from "framer-motion";
+import { getPlacesData } from "../../config/TravelApi";
 
 import Header from "../../components/Map/Header/Header";
 import List from "../../components/Map/List/List";
@@ -25,7 +24,7 @@ const Explore = () => {
 	const [isLoading, setIsLoading] = useState(false);
   
 	useEffect(() => {
-	  setCoords({ lat: 37.774929, lng: -122.419416 });
+	  setCoords({ lat: -37.810353, lng: 144.962736 });
 	}, []);
   
 	useEffect(() => {
