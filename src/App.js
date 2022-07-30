@@ -4,9 +4,12 @@ import { Navbar } from "./components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Home, Explore, Travels, Profile, LoginForm } from "./pages";
 import TravelPostDetails from "./pages/Travels/TravelPostDetails";
+import "./App.scss";
+import { ThemeContext } from "styled-components";
 import Header from "./components/Map/Header/Header";
 import List from "./components/Map/List/List";
 import Map from "./components/Map/Map/Map";
+
 
 // import Home from "./pages/Home/Home";
 // import Explore from "./pages/Explore/Explore";
@@ -14,7 +17,6 @@ import Map from "./components/Map/Map/Map";
 // import Profile from "./pages/Profile/Profile";
 // import LoginForm from "./pages/Login/LoginForm";
 
-import "./App.scss";
 // import AppCss from "./styles/App.css";
 
 // function App() {
@@ -36,20 +38,23 @@ import "./App.scss";
 //   );
 // }
 
-const App = () => (
-  <div className="app">
-    <Router>
-      <Navbar />
-      <Home />
-      <Explore />
-      <Travels />
-      <Profile />
-      <LoginForm />
-      <Routes>
-        <Route exact path="/posts/:id" element={<TravelPostDetails />} />
-      </Routes>
-    </Router>
-  </div>
-);
+const App = () => {
+  
+  return (
+    <div className="app">
+      <Router>
+        <Navbar />
+        <Home />
+        <Explore />
+        <Travels />
+        <Profile />
+        <LoginForm />
+        <Routes>
+          <Route exact path="/posts/:id" element={<TravelPostDetails />} />
+        </Routes>
+      </Router>
+    </div>
+  );
+};
 
 export default App;

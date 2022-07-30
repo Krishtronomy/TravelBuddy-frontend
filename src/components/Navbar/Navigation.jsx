@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState} from "react";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -37,7 +37,6 @@ import "./Navigation.scss";
 
 const Navigation = () => {
 	const [toggle, setToggle] = useState(false);
-
 	return (
     // Main Navbar 
 	  <nav className="app__navbar">
@@ -45,10 +44,10 @@ const Navigation = () => {
 				{/* <img src={images.logo} alt="logo" /> */}
 			</div>
 			<ul className="app__navbar-links">
-				{["home", "explore", "travels", "profile", "Login"].map((item) => (
+				{["home", "explore", "travels", "profile", sessionStorage.getItem("user") || "login" ].map((item) => (
 					<li className="app__flex p-text" key={`link-${item}`}>
 						<div />
-						<a href={`#${item}`}>{item}</a>
+						<a href={`#${item}`}>{item} </a>
 					</li>
 				))}
 			</ul>
@@ -64,7 +63,7 @@ const Navigation = () => {
 					>
 						<HiX onClick={() => setToggle(false)} />
 						<ul>
-							{["home", "explore", "travels", "profile", "login"].map(
+							{["home", "explore", "travels", "profile", sessionStorage.getItem("user") || "login"].map(
 								(item) => (
 									<li key={item}>
 										<a

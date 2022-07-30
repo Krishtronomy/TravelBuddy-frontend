@@ -40,7 +40,7 @@ const Travels = () => {
     postAPI.delete(`/posts/${id}`);
   };
 
-  console.log(posts[1]);
+
 
   return (
     <>
