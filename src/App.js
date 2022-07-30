@@ -6,6 +6,10 @@ import { Home, Explore, Travels, Profile, LoginForm } from "./pages";
 import TravelPostDetails from "./pages/Travels/TravelPostDetails";
 import "./App.scss";
 import { ThemeContext } from "styled-components";
+import Header from "./components/Map/Header/Header";
+import List from "./components/Map/List/List";
+import Map from "./components/Map/Map/Map";
+
 
 // import Home from "./pages/Home/Home";
 // import Explore from "./pages/Explore/Explore";

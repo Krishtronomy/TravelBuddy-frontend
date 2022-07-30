@@ -1,3 +1,4 @@
+
  button {
     background: #f1356d;
     color: #fff;
@@ -6,3 +7,9 @@
     border-radius: 8px;
     cursor: pointer;
   }
+
+.app__profile {
+	flex: 1;
+	width: 100%;
+	flex-direction: column;
+}

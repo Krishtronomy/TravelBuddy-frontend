@@ -19,4 +19,8 @@ const Profile = () => {
     )
 }
 
-export default AppWrap(Profile, "profile");
+export default AppWrap(
+	MotionWrap(Profile, "app__profile"),
+	"profile",
+	"app__primarybg"
+);
