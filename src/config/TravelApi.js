@@ -1,29 +1,23 @@
 import axios from 'axios';
 
-// Save travel advisor API in URL variable
-const URL = 'https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary'
+// Obtain traveladvisor data depending on data type (restaurant, hotel, attraction)
+export const getPlacesData = async (type, sw, ne) => {
+  try {
+    const { data: { data } } = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
+      params: {
+        bl_latitude: sw.lat,
+        bl_longitude: sw.lng,
+        tr_longitude: ne.lng,
+        tr_latitude: ne.lat,
+      },
+      headers: {
+        'x-rapidapi-key': 'bc4055fb00mshf976bd99b91c0f7p18896ajsn7d4ca347bc53',
+        'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
+      },
+    });
 
-const options = {
-  params: {
-    bl_latitude: '11.847676',
-    tr_latitude: '12.838442',
-    bl_longitude: '109.095887',
-    tr_longitude: '109.149359',
-  },
-  headers: {
-    'X-RapidAPI-Key': 'bc4055fb00mshf976bd99b91c0f7p18896ajsn7d4ca347bc53',
-    'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+    return data;
+  } catch (error) {
+    console.log(error);
   }
 };
-
-// Make travel advisor API call using URL passed through axios
-
-export const getPlacesData = async () => {
-    try {
-        const { data: { data } } = await axios.get(URL, options);
-
-        return data;
-    } catch (error) {
-        console.log(error)
-    }
-}
