@@ -105,10 +105,10 @@ const Profile = () => {
       {loggedInUser.user && (
         <div className="create">
           {loggedInUser.imageUrl == "null" && (
-            <img src={placeholder} className="profile-pic" />
+            <img src={placeholder} className="profile-pic" alt="profile image"/>
           )}
           {loggedInUser.imageUrl != "null" && (
-            <img src={loggedInUser.imageUrl} className="profile-pic"/>
+            <img src={loggedInUser.imageUrl} className="profile-pic" alt="profile image"/>
           )}
           <div>
             <button id="imageChange" onClick={triggerImageChange}>
