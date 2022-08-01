@@ -35,9 +35,11 @@ const LoginForm = () => {
     postAPI
       .post("/sign_in", login)
       .then((response) => {
+        sessionStorage.setItem("id", response.data.id)
         sessionStorage.setItem("token", response.data.jwt);
         sessionStorage.setItem("user", response.data.username);
         sessionStorage.setItem("about", response.data.about);
+        sessionStorage.setItem("imageUrl", response.data.imageUrl)
         setLoggedInUser(response.data.username);
         setUserInfo(response.data.about)
         setEmail("");

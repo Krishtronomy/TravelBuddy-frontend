@@ -44,11 +44,13 @@ const NewPost = () => {
       formData.append("post[image]", image.image);
     }
     setIsLoading(true);
-    postAPI.post("/create", formData, config);
-
+    postAPI.post("/create", formData, config)
+    .then((response) => {
+      console.log("response is: ", response);
+    })
+    
     setIsLoading(false);
     cleanForm();
-    // navigate("/");
   };
 
   // Clean form after submitting

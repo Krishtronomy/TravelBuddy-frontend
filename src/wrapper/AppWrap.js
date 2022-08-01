@@ -6,8 +6,11 @@ import { LoginForm } from "../pages";
 const AppWrap = (Component, idName, classNames) =>
   function HOC() {
     const loggedInUser = {
+      id: sessionStorage.getItem("id"),
       user: sessionStorage.getItem("user"),
       about: sessionStorage.getItem("about"),
+      token: sessionStorage.getItem("token"),
+      imageUrl: sessionStorage.getItem("imageUrl")
     };
     return (
       <UserContext.Provider value={loggedInUser}>
