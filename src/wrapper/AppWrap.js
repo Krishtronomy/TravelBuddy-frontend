@@ -9,7 +9,8 @@ const AppWrap = (Component, idName, classNames) =>
       id: sessionStorage.getItem("id"),
       user: sessionStorage.getItem("user"),
       about: sessionStorage.getItem("about"),
-      token: sessionStorage.getItem("token")
+      token: sessionStorage.getItem("token"),
+      imageUrl: sessionStorage.getItem("imageUrl")
     };
     return (
       <UserContext.Provider value={loggedInUser}>
