@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Use axios to create API for backend
 const postAPI = axios.create({
-  baseURL: "http://localhost:3050",
+  baseURL: process.env.REACT_APP_BACKEND_URL
 });
 
 // Use axios to insert jwt bearer token
