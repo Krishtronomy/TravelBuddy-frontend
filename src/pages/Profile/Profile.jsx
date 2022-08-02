@@ -1,18 +1,21 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Profile.scss";
-import UserContext from "../../utils/UserContext";
+import { useGlobalState } from "../../utils/stateContext";
 import postAPI from "../../config/api";
 import placeholder from "./profile-placeholder.png";
 
 const Profile = () => {
-  const loggedInUser = useContext(UserContext);
+  const { store, dispatch } = useGlobalState();
+  const { loggedInUser, token, id, imageUrl, about } = store;
+
   const initialFormState = {
-    username: loggedInUser.user,
-    about: loggedInUser.about,
+    username: loggedInUser,
+    about: about,
   };
+
   const successState = {
     success: null,
     successMessage: "",
@@ -23,7 +26,6 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [changeImage, setChangeImage] = useState(false);
-
 
   const editClick = (event) => {
     event.preventDefault();
@@ -36,51 +38,63 @@ const Profile = () => {
     });
   };
 
-// Used for conditionally rendering image upload file button
+  // Used for conditionally rendering image upload file button
   const triggerImageChange = (event) => {
     setChangeImage(true);
   };
 
-//   Captures image uploaded into file input field
+  //   Captures image uploaded into file input field
   const handleImageChange = (event) => {
     setImage({ image: event.target.files[0] });
   };
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${loggedInUser.token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
 
-  //   Submits uploaded image
+  // Submits uploaded image
   const handleImageSubmit = (event) => {
     event.preventDefault();
     const picture = new FormData();
     picture.append("user[image]", image.image);
     postAPI
-      .put(`/user/${loggedInUser.id}/update`, picture, config)
+      .put(`/user/${id}/update`, picture, config)
       .then((response) => {
         sessionStorage.setItem("imageUrl", response.data.image.url);
+        dispatch({
+          type: "setImageUrl",
+          data: response.data.image.url,
+        });
         setSuccessfulEdit({
-            success: true,
-            successMessage: "Successfully updated!",
-          });
+          success: true,
+          successMessage: "Successfully updated!",
+        });
       })
       .catch((error) => {
         console.log(error.response.data.error);
       });
   };
-  //   Submits edits made to username or about section
+  // Submits edits made to username or about section
   const handleEditSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("user[username]", editForm.username);
     formData.append("user[about]", editForm.about);
     postAPI
-      .put(`/user/${loggedInUser.id}/update`, formData, config)
+      .put(`/user/${id}/update`, formData, config)
       .then((response) => {
         sessionStorage.setItem("user", editForm.username);
         sessionStorage.setItem("about", editForm.about);
+        dispatch({
+          type: "setLoggedInUser",
+          data: editForm.username,
+        });
+        dispatch({
+          type: "setAbout",
+          data: editForm.about,
+        });
         setSuccessfulEdit({
           success: true,
           successMessage: "Successfully updated!",
@@ -94,21 +108,26 @@ const Profile = () => {
 
   return (
     <>
+      <p>{loggedInUser}</p>
       <h1>Profile page</h1>
-      {!loggedInUser.user && (
+      {!loggedInUser && (
         <div className="create">
           <h3>Please login or sign up first</h3>
           <a href="#login">Login</a>
         </div>
       )}
-      <h1>{loggedInUser.user}</h1>
-      {loggedInUser.user && (
+      <h1>{loggedInUser}</h1>
+      {loggedInUser && (
         <div className="create">
-          {loggedInUser.imageUrl == "null" && (
-            <img src={placeholder} className="profile-pic" alt="profile image"/>
+          {(imageUrl == null || imageUrl == "null") && (
+            <img
+              src={placeholder}
+              className="profile-pic"
+              alt="profile image"
+            />
           )}
-          {loggedInUser.imageUrl != "null" && (
-            <img src={loggedInUser.imageUrl} className="profile-pic" alt="profile image"/>
+          {imageUrl && imageUrl != "null" && (
+            <img src={imageUrl} className="profile-pic" alt="profile image" />
           )}
           <div>
             <button id="imageChange" onClick={triggerImageChange}>
@@ -123,14 +142,13 @@ const Profile = () => {
                   multiple={false}
                   onChange={handleImageChange}
                 />
-                <button onClick={() => setChangeImage(false) }>Cancel</button>
+                <button onClick={() => setChangeImage(false)}>Cancel</button>
                 <button>Upload!</button>
               </form>
             )}
-                {successfulEdit.success && <p>{successfulEdit.successMessage}</p>}
           </div>
           <h3>About</h3>
-          <p className="about-section">{loggedInUser.about}</p>
+          <p className="about-section">{about}</p>
           {!edit && <button onClick={editClick}>Edit Profile</button>}
         </div>
       )}
@@ -152,7 +170,7 @@ const Profile = () => {
               value={editForm.about}
               onChange={handleFormChange}
             />
-            <button onClick={() => setEdit(false) }>Cancel</button>
+            <button onClick={() => setEdit(false)}>Cancel</button>
             <button>Update</button>
           </form>
         )}
