@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable jsx-a11y/anchor-has-content */
-
 import React from "react";
 
 //Create NavDot component
 
 const NavigationDots = ({ active }) => (
 	<div className="app__navigation">
-		{["home", "explore", "travels", "profile"].map(
+		{["home", "explore", "travels", "profile", "login"].map(
 			(item, index) => (
 				<a
 					href={`#${item}`}

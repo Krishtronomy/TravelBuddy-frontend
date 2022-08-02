@@ -183,5 +183,5 @@ const Profile = () => {
 export default AppWrap(
   MotionWrap(Profile, "app__profile"),
   "profile",
-  "app__primarybg"
+  "app__whitebg"
 );
