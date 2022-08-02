@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { NavigationDots } from "../components";
 import UserContext from "../utils/UserContext";
-import { LoginForm } from "../pages";
+import { Login } from "../pages";
 
 const AppWrap = (Component, idName, classNames) =>
   function HOC() {

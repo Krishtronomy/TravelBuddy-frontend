@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { AppBar, Toolbar } from "@mui/material";
 import "./Navigation.scss";
+import logo from "../../assets/logo.png"
 
 // const Navigation = () => {
 //   return (
@@ -41,7 +42,7 @@ const Navigation = () => {
     // Main Navbar 
 	  <nav className="app__navbar">
 			<div className="app__navbar-logo">
-				{/* <img src={images.logo} alt="logo" /> */}
+				<img src={logo} alt="logo" />
 			</div>
 			<ul className="app__navbar-links">
 				{["home", "explore", "travels", "profile", sessionStorage.getItem("user") || "login" ].map((item) => (

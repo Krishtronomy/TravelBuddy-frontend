@@ -3,13 +3,14 @@ import { CssBaseline, Grid } from "@material-ui/core";
 import { getPlacesData } from "../../config/TravelApi";
 
 import Header from "../../components/Map/Header/Header";
+import { userInput } from "../../components/Search/SearchBar";
 import List from "../../components/Map/List/List";
 import Map from "../../components/Map/Map/Map";
 
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Explore.scss";
 
-const Explore = () => {
+export const Explore = () => {
 	const [type, setType] = useState('restaurants');
 	const [rating, setRating] = useState('');
   

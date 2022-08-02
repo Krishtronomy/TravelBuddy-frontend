@@ -1,12 +1,11 @@
 import { React, useState } from "react";
-import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
-import "./LoginForm.scss";
+import "./Login.scss";
 import postAPI from "../../config/api";
 import Profile from "../Profile/Profile";
 import SignUp from "./SignUp";
 
-const LoginForm = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedInUser, setLoggedInUser] = useState(
@@ -87,4 +86,6 @@ const LoginForm = () => {
   );
 };
 
-export default AppWrap(LoginForm);
+// export default AppWrap(LoginForm);
+
+export default AppWrap(MotionWrap(Login, "app__login"), "login", "app__whitebg");

@@ -1,5 +1,4 @@
-import React, { useContext} from 'react';
-import { motion } from "framer-motion";
+import React, { useContext } from 'react';
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Profile.scss";
 import UserContext from '../../utils/UserContext';
