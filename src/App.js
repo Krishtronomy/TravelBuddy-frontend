@@ -2,7 +2,7 @@ import React, {useReducer} from "react";
 // import Navigation from "./components/Navbar/Navigation";
 import { Navbar } from "./components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Home, Explore, Travels, Profile, LoginForm } from "./pages";
+import { Home, Explore, Travels, Profile, Login } from "./pages";
 import TravelPostDetails from "./pages/Travels/TravelPostDetails";
 import "./App.scss";
 import { ThemeContext } from "styled-components";
@@ -59,7 +59,7 @@ const App = () => {
         <Explore />
         <Travels />
         <Profile />
-        <LoginForm />
+        <Login />
         <Routes>
           <Route exact path="/posts/:id" element={<TravelPostDetails />} />
         </Routes>
