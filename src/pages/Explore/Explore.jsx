@@ -90,5 +90,5 @@ const Explore = () => {
 export default AppWrap(
 	MotionWrap(Explore, "app__explore"),
 	"explore",
-	"app__primarybg"
+	"app__whitebg"
 );

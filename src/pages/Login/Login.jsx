@@ -116,5 +116,5 @@ const Login = () => {
 export default AppWrap(
 	MotionWrap(Login, "app__explore"),
 	"login",
-	"app__whitebg"
+	"app__primarybg"
 );

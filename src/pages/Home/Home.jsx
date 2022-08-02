@@ -1,7 +1,8 @@
 import React from "react";
 
+import { Pace, WindupChildren } from "windups"; 
 import { AppWrap, MotionWrap } from "../../wrapper";
-import { Button } from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import { Blob } from "react-blob";
 import "./Home.scss";
 
@@ -42,16 +43,33 @@ const Home = () => {
 		/>
 	);
 
+    const theme = {
+        spacing: 8,
+      }
+
 	return (
 		<>
-			<h1>Looking To Go Somewhere?</h1>
-			<BackgroundBlobRight />
+            <BackgroundBlobRight />
             <BackgroundBlobLeft />
-			<Button variant="contained" size="large" href="#explore">
-				Let's Go!
-			</Button>
+            <WindupChildren>
+                <div className="content-box-left">
+                    <span>{"Where do you want to eat? 🍽"}</span>
+                </div>
+                <div className="content-box-right">
+                    <span>{"Where should we stay on our trip? 🏖"}</span>
+                </div>
+                <div className="content-box-left">
+                    <span>{"What attractions can we visit nearby? 🎟"}</span>
+                </div>
+                <Box sx={{ m: 8 }}>
+                <Button sx={{fontSize: 60}} variant="contained" size="large" href="#explore">
+                    Let's Go!
+                </Button>
+                </Box>
+
+            </WindupChildren>
 		</>
-	);
+	)
 };
 
-export default AppWrap(MotionWrap(Home, "app__home"), "home", "app__whitebg");
+export default AppWrap(MotionWrap(Home, "app__home"), "home", "app__primarybg");
