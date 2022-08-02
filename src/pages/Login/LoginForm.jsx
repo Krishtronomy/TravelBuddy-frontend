@@ -1,10 +1,10 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./LoginForm.scss";
 import postAPI from "../../config/api";
-import Profile from "../Profile/Profile";
 import SignUp from "./SignUp";
+import { useGlobalState } from "../../utils/stateContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +16,7 @@ const LoginForm = () => {
   const [userInfo, setUserInfo] = useState(
     sessionStorage.getItem("about") || null
   );
-
+  const { dispatch } = useGlobalState();
 
   //   Set email state to user typed entry on input form
   const emailChangeHandler = (event) => {
@@ -28,20 +28,39 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  //   Sets sign in details and verifies with the database if details are correct
+  // Sets sign in details and verifies with the database if details are correct
   const submitFormHandler = (event) => {
     event.preventDefault();
     const login = { email, password };
     postAPI
       .post("/sign_in", login)
       .then((response) => {
-        sessionStorage.setItem("id", response.data.id)
+        sessionStorage.setItem("id", response.data.id);
         sessionStorage.setItem("token", response.data.jwt);
         sessionStorage.setItem("user", response.data.username);
         sessionStorage.setItem("about", response.data.about);
-        sessionStorage.setItem("imageUrl", response.data.imageUrl)
+        sessionStorage.setItem("imageUrl", response.data.imageUrl);
         setLoggedInUser(response.data.username);
-        setUserInfo(response.data.about)
+        dispatch({
+          type: "setLoggedInUser",
+          data: response.data.username,
+        });
+        dispatch({
+          type: "setToken",
+          data: response.data.jwt,
+        });
+        dispatch({
+          type: "setID",
+          data: response.data.id,
+        });
+        dispatch({
+          type: "setAbout",
+          data: response.data.about,
+        });
+        dispatch({
+          type: "setImage",
+          data: response.data.imageUrl || null,
+        });
         setEmail("");
         setPassword("");
         setLoginError(null);
@@ -54,12 +73,16 @@ const LoginForm = () => {
   //   Handles signing out
   const signOutHandler = () => {
     sessionStorage.clear();
+    dispatch({
+      type: "setLoggedInUser",
+      data: null,
+    });
     setLoggedInUser(null);
   };
 
   return (
     <>
-    {/* Renders login or user welcome depending if user is logged in or not */}
+      {/* Renders login or user welcome depending if user is logged in or not */}
       {!loggedInUser && <h1>Login Page</h1>}
       {loggedInUser && <h3>Hello {loggedInUser}!</h3>}
       {loggedInUser && <button onClick={signOutHandler}>Sign Out</button>}
@@ -84,7 +107,7 @@ const LoginForm = () => {
           )}
         </form>
       </div>
-     {!loggedInUser &&  <SignUp/>}
+      {!loggedInUser && <SignUp />}
     </>
   );
 };

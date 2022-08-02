@@ -40,8 +40,6 @@ const Travels = () => {
     postAPI.delete(`/posts/${id}`);
   };
 
-
-
   return (
     <>
       <h1>Travels page</h1>
@@ -60,11 +58,16 @@ const Travels = () => {
                   <img
                     src={post.image.url}
                     style={{ width: 300, height: 250 }}
+                    alt="location image"
                   />
                 )}
                 {/* Else if a post has no image then render a placeholder image */}
                 {!post.image && (
-                  <img src={placeholder} style={{ width: 300, height: 250 }} />
+                  <img
+                    src={placeholder}
+                    style={{ width: 300, height: 250 }}
+                    alt="location image"
+                  />
                 )}
                 <p>{post.description}</p>
               </Link>
@@ -79,7 +82,7 @@ const Travels = () => {
 };
 
 export default AppWrap(
-	MotionWrap(Travels, "app__travels"),
-	"travels",
-	"app__whitebg"
+  MotionWrap(Travels, "app__travels"),
+  "travels",
+  "app__whitebg"
 );

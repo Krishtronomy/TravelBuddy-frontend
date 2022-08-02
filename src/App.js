@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer} from "react";
 // import Navigation from "./components/Navbar/Navigation";
 import { Navbar } from "./components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
@@ -9,7 +9,8 @@ import { ThemeContext } from "styled-components";
 import Header from "./components/Map/Header/Header";
 import List from "./components/Map/List/List";
 import Map from "./components/Map/Map/Map";
-
+import { reducer } from "./utils/reducer";
+import { StateContext } from "./utils/stateContext";
 
 // import Home from "./pages/Home/Home";
 // import Explore from "./pages/Explore/Explore";
@@ -39,9 +40,19 @@ import Map from "./components/Map/Map/Map";
 // }
 
 const App = () => {
-  
+
+  const initialState = {
+    id: sessionStorage.getItem("id"),
+    loggedInUser: sessionStorage.getItem("user") || null,
+    token: sessionStorage.getItem("token") || null,
+    imageUrl: sessionStorage.getItem("imageUrl"),
+    about: sessionStorage.getItem("about")
+  }
+  const [store, dispatch] = useReducer(reducer, initialState)
   return (
+    
     <div className="app">
+      <StateContext.Provider value={{store, dispatch}}>
       <Router>
         <Navbar />
         <Home />
@@ -53,6 +64,7 @@ const App = () => {
           <Route exact path="/posts/:id" element={<TravelPostDetails />} />
         </Routes>
       </Router>
+      </StateContext.Provider>
     </div>
   );
 };
