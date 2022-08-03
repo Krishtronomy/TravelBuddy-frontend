@@ -43,26 +43,22 @@ const Home = () => {
 		/>
 	);
 
-    const theme = {
-        spacing: 8,
-      }
-
 	return (
 		<>
             <BackgroundBlobRight />
             <BackgroundBlobLeft />
             <WindupChildren>
                 <div className="content-box-left">
-                    <span>{"Where do you want to eat? 🍽"}</span>
+                    <span><Pace ms={35}>{"Where do you want to eat? 🍽"}</Pace></span>
                 </div>
                 <div className="content-box-right">
-                    <span>{"Where should we stay on our trip? 🏖"}</span>
+                    <span><Pace ms={35}>{"Where should we stay on our trip? 🏖"}</Pace></span>
                 </div>
                 <div className="content-box-left">
-                    <span>{"What attractions can we visit nearby? 🎟"}</span>
+                    <span><Pace ms={35}>{"What attractions can we visit nearby? 🎟"}</Pace></span>
                 </div>
                 <Box sx={{ m: 8 }}>
-                <Button sx={{fontSize: 60}} variant="contained" size="large" href="#explore">
+                <Button variant="contained" color="primary" href="#explore" style={{ fontSize: '40px' }}>
                     Let's Go!
                 </Button>
                 </Box>
