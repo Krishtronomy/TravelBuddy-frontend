@@ -37,6 +37,34 @@ export const reducer = (state, action) => {
                 imageUrl: action.data
             }
         }
+        case "setPostsList": {
+            //updates the value for Posts
+            return {
+                ...state,
+                postsList: action.data 
+            }
+        }
+        case "addPost": {
+            //updates the value for Posts
+            return {
+                ...state,
+                postsList: [action.data, ...state.postsList ]
+            }
+        }
+        case "postLoading": {
+            //updates the value for Posts
+            return {
+                ...state,
+                loading: action.data
+            }
+        }
+        case "setError": {
+            //updates the value for Posts
+            return {
+                ...state,
+                error: action.data
+            }
+        }
         default: return state
     }
 
