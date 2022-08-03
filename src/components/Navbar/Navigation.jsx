@@ -38,8 +38,9 @@ import { useGlobalState } from "../../utils/stateContext";
 // };
 
 const Navigation = () => {
-	const location = useLocation()
-	const { dispatch} = useGlobalState()
+	const location = useLocation();
+	const { store, dispatch} = useGlobalState();
+	const { loggedInUser } = store;
 	const [toggle, setToggle] = useState(false);
 
 	// Get posts upon initial render
@@ -61,12 +62,14 @@ const Navigation = () => {
 				{/* <img src={images.logo} alt="logo" /> */}
 			</div>
 			<ul className="app__navbar-links">
-				{["home", "explore", "travels", "profile", sessionStorage.getItem("user") || "login" ].map((item) => (
+				{/* {["home", "explore", "travels", "profile", sessionStorage.getItem("user") || "login" ].map((item) => ( */}
+				{["home", "explore", "travels", "profile"].map((item) => (
 					<li className="app__flex p-text" key={`link-${item}`}>
 						<div />
 						<a href={`#${item}`}>{item} </a>
 					</li>
 				))}
+				{loggedInUser? <><li className="app__flex p-text"><div /><a href={`#login`}>Log Out</a></li></>:<><li className="app__flex p-text"><div /><a href={`#login`}>Log In</a></li></>}
 			</ul>
 
       {/* Hamburger Menu */}
