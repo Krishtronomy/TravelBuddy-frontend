@@ -38,31 +38,38 @@ export const reducer = (state, action) => {
             }
         }
         case "setPostsList": {
-            //updates the value for Posts
+            //updates the value for PostsList
             return {
                 ...state,
                 postsList: action.data 
             }
         }
         case "addPost": {
-            //updates the value for Posts
+            //adds new post 
             return {
                 ...state,
-                postsList: [action.data, ...state.postsList ]
+                postsList: [...state.postsList, action.data]
             }
         }
         case "postLoading": {
-            //updates the value for Posts
+            //sets the Loading status for posts
             return {
                 ...state,
                 loading: action.data
             }
         }
         case "setError": {
-            //updates the value for Posts
+            //sets Error for posts
             return {
                 ...state,
                 error: action.data
+            }
+        }
+        case "removePost": {
+            //filters posts based on removed ID's
+            return {
+                ...state,
+                postsList: state.postsList.filter((item) => item.id !== action.data)
             }
         }
         default: return state

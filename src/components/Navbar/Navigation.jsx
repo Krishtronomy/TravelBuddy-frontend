@@ -39,13 +39,20 @@ import { useGlobalState } from "../../utils/stateContext";
 
 const Navigation = () => {
 	const location = useLocation()
-	const {dispatch} = useGlobalState()
+	const { dispatch} = useGlobalState()
 	const [toggle, setToggle] = useState(false);
 
+	// Get posts upon initial render
 	React.useEffect(
 		displayPosts(location, dispatch) 
 		, 
 		[]
+	  ) 
+	//   Trigger Re-render if location path changes 
+	  React.useEffect(
+		displayPosts(location, dispatch) 
+		, 
+		[location]
 	  ) 
 	return (
     // Main Navbar 
@@ -95,9 +102,10 @@ const Navigation = () => {
 
 export default Navigation;
 
+// Fetches posts from database and sets the values in the reducer Store
 const displayPosts = (location, dispatch) => {
 	return () => {
-		if (location.pathname.includes("/")){
+		if (location.hash == ("") || location.hash == ("#travels")){
 			getPosts()
 			.then(posts => {
 				dispatch({
