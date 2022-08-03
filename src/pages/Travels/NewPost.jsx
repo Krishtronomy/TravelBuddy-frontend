@@ -9,7 +9,8 @@ import { motion } from "framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Travels.scss";
 import postAPI from "../../config/api";
-import axios from "axios";
+import { useGlobalState } from "../../utils/stateContext";
+import { createPost } from "../../services/postsServices";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -17,6 +18,8 @@ const NewPost = () => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { dispatch } = useGlobalState();
+
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -47,6 +50,10 @@ const NewPost = () => {
     postAPI.post("/create", formData, config)
     .then((response) => {
       console.log("response is: ", response);
+      dispatch({
+        type: "addPost",
+        data: response.data
+      })
     })
     
     setIsLoading(false);
@@ -57,6 +64,7 @@ const NewPost = () => {
   const cleanForm = () => {
     setTitle("");
     setDescription("");
+    setImage(null)
   };
 
   return (

@@ -2,10 +2,12 @@ import * as React from "react";
 import { useState} from "react";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, CardActionArea, Toolbar } from "@mui/material";
 import "./Navigation.scss";
+import { getPosts } from "../../services/postsServices";
+import { useGlobalState } from "../../utils/stateContext";
 
 // const Navigation = () => {
 //   return (
@@ -36,7 +38,22 @@ import "./Navigation.scss";
 // };
 
 const Navigation = () => {
+	const location = useLocation()
+	const { dispatch} = useGlobalState()
 	const [toggle, setToggle] = useState(false);
+
+	// Get posts upon initial render
+	React.useEffect(
+		displayPosts(location, dispatch) 
+		, 
+		[]
+	  ) 
+	//   Trigger Re-render if location path changes 
+	  React.useEffect(
+		displayPosts(location, dispatch) 
+		, 
+		[location]
+	  ) 
 	return (
     // Main Navbar 
 	  <nav className="app__navbar">
@@ -84,3 +101,33 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
+// Fetches posts from database and sets the values in the reducer Store
+const displayPosts = (location, dispatch) => {
+	return () => {
+		if (location.hash == ("") || location.hash == ("#travels")){
+			getPosts()
+			.then(posts => {
+				dispatch({
+					type: "setPostsList",
+					data: posts
+				})
+				dispatch({
+					type: "postLoading",
+					data: false
+				})
+				dispatch({
+					type: "setError",
+					data: false
+				})
+			})
+			.catch(error => {
+				console.log(error)
+				dispatch({
+					type: "setError",
+					data: error.message
+				})
+			})
+		}
+	}
+}

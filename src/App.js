@@ -46,7 +46,8 @@ const App = () => {
     loggedInUser: sessionStorage.getItem("user") || null,
     token: sessionStorage.getItem("token") || null,
     imageUrl: sessionStorage.getItem("imageUrl"),
-    about: sessionStorage.getItem("about")
+    about: sessionStorage.getItem("about"),
+    postsList: []
   }
   const [store, dispatch] = useReducer(reducer, initialState)
   return (
