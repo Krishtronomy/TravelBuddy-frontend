@@ -10,6 +10,8 @@
 	--gray-color: #6b7688;
 	--brown-color: #46364a;
 	--white-color: #ffffff;
+	max-width: 100vw;
+	overflow-x: hidden;
 }
 
 * {
