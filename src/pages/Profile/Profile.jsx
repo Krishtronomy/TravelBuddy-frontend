@@ -112,7 +112,7 @@ const Profile = () => {
       <h1>Profile page</h1>
       {!loggedInUser && (
         <div className="create">
-          <h3>Please login or sign up first</h3>
+          <h3>Please login or sign up first to view profile</h3>
           <a href="#login">Login</a>
         </div>
       )}

@@ -7,15 +7,29 @@ import { Link, useNavigate } from "react-router-dom";
 import placeholder from "./placeholder.jpg";
 import { useGlobalState } from "../../utils/stateContext";
 import { StarRating } from "./StarRating";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const Travels = () => {
   const { store, dispatch } = useGlobalState();
   const { postsList, loading, error } = store;
+  const { loggedInUser } = store;
 
   return (
     <>
       <h1>Travels page</h1>
+      {loggedInUser && (
       <NewPost />
+      )}
+      {!loggedInUser && (
+      <div className="create">
+        <h3>Please login or sign up first to create posts</h3>
+        <a href="#login">Login</a>
+      </div>
+      )}
+
 
       <div>
         <div>{error && error}</div>
