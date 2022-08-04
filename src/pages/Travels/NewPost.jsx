@@ -5,7 +5,6 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Stack, Rating } from "@mui/material";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Travels.scss";
@@ -13,6 +12,22 @@ import postAPI from "../../config/api";
 import { StarRating } from "./StarRating";
 import { useGlobalState } from "../../utils/stateContext";
 import { createPost } from "../../services/postsServices";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -73,46 +88,84 @@ const NewPost = () => {
     setPostRating(null)
   };
 
+    // // Set Modal state
+    const [open, setOpen] = useState("");
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
   return (
     <>
       <div className="create">
         <h2>Create Post</h2>
-        <form onSubmit={handleSubmit}>
-          <label>Title:</label>
-          <input
-            type="text"
-            required
-            value={title}
-            onChange={handleTitleChange}
-          />
-          <label>Description:</label>
-          <textarea
-            required
-            value={description}
-            onChange={handleDescriptionChange}
-          ></textarea>
-          <label>Add Image:</label>
-          <input
-            className="file"
-            type="file"
-            accept="image/*"
-            multiple={false}
-            onChange={handleImageChange}
-          />
-          <div style={{display:"flex", justifyContent:"center"}}>
-          <Stack spacing={2}>
-            <Rating
-              value={postRating}
-              onChange={handleRatingChange}
-              precision={0.5}
-              style={{ color: "black"}}
-            />
-          </Stack>
+        <form id="newpostform" onSubmit={handleSubmit}>
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+              >
+                Enter New Post Details
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <label>Title:</label>
+                <input
+                  type="text"
+                  required
+                  value={title}
+                  onChange={handleTitleChange}
+                  style={{ width: "100%" }}
+                />
+                <label>Description:</label>
+                <textarea
+                  required
+                  value={description}
+                  onChange={handleDescriptionChange}
+                  style={{ width: "100%" }}
+                ></textarea>
+                <label>Add Image:</label>
+                <input
+                  className="file"
+                  type="file"
+                  accept="image/*"
+                  multiple={false}
+                  onChange={handleImageChange}
+                />
+                <div style={{display:"flex", justifyContent:"center"}}>
+                <Stack spacing={2}>
+                  <Rating
+                    value={postRating}
+                    onChange={handleRatingChange}
+                    precision={0.5}
+                    style={{ color: "black"}}
+                  />
+                </Stack>
+                </div>
+                {!isLoading && <Button variant="outlined" style={{marginTop:"5%"}} form="newpostform" type="submit">Submit</Button>}
+                {isLoading && <Button style={{marginTop:"5%"}} disabled>Submitting Post...</Button>}
+              </Typography>
+            </Box>
+          </Modal>
           </div>
-          {!isLoading && <button style={{marginTop:"5%"}}>Submit</button>}
-          {isLoading && <button style={{marginTop:"5%"}} disabled>Submitting Post...</button>}
         </form>
       </div>
+
+      <div>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={handleOpen}
+				>
+					Create New Post
+				</Button>
+			</div>
+
     </>
   );
 };
