@@ -99,14 +99,16 @@ const NewPost = () => {
             multiple={false}
             onChange={handleImageChange}
           />
+          <div style={{display:"flex", justifyContent:"center"}}>
           <Stack spacing={2}>
             <Rating
               value={postRating}
               onChange={handleRatingChange}
               precision={0.5}
-              style={{ color: "black", justifyContent:"center" }}
+              style={{ color: "black"}}
             />
           </Stack>
+          </div>
           {!isLoading && <button style={{marginTop:"5%"}}>Submit</button>}
           {isLoading && <button style={{marginTop:"5%"}} disabled>Submitting Post...</button>}
         </form>
