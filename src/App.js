@@ -59,11 +59,11 @@ const App = () => {
         <Home />
         <Explore />
         <Travels />
-        <Profile />
-        <Login />
         <Routes>
           <Route exact path="/posts/:id" element={<TravelPostDetails />} />
         </Routes>
+        <Profile />
+        <Login />
       </Router>
       </StateContext.Provider>
     </div>

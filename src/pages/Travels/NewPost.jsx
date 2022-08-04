@@ -88,10 +88,10 @@ const NewPost = () => {
     setPostRating(null)
   };
 
-    // // Set Modal state
-    const [open, setOpen] = useState("");
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  // // Set Modal state
+  const [open, setOpen] = useState("");
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
