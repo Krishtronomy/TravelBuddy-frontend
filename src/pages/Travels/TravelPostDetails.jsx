@@ -23,10 +23,9 @@ const TravelPostDetails = () => {
   // Gets the post based on post id
   const getPost = () => {
     postAPI.get(`/posts/${id}`).then((response) => {
-      console.log(response);
       setPost(response.data);
       setDate(
-        new Date(post.posted).toLocaleDateString("en-us", {
+        new Date(response.data.posted).toLocaleDateString("en-us", {
           weekday: "long",
           year: "numeric",
           month: "short",
@@ -76,7 +75,6 @@ const TravelPostDetails = () => {
     formData.append("post[description]", editForm.description)
     postAPI.put(`/posts/${id}`, formData)
     .then((response) => {
-      console.log(response)
       setEditForm({
         title: editForm.title,
         description: editForm.description

@@ -13,11 +13,6 @@ const Travels = () => {
   const {postsList, loading, error} = store
  
 
-console.log(postsList)
-  const deletePost = (id) => {
-    postAPI.delete(`/posts/${id}`);
-  };
-
   return (
     <>
       <h1>Travels page</h1>

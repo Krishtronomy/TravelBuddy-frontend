@@ -49,7 +49,6 @@ const NewPost = () => {
     setIsLoading(true);
     postAPI.post("/create", formData, config)
     .then((response) => {
-      console.log("response is: ", response);
       dispatch({
         type: "addPost",
         data: response.data

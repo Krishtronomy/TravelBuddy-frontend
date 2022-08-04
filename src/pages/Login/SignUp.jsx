@@ -47,7 +47,7 @@ const SignUp = () => {
 
   return (
     <>
-      <h1>Sign Up</h1>
+      <h1 style={{marginBottom:"20px"}}>Sign Up</h1>
       <div className="create">
         <form onSubmit={submitFormHandler}>
           <div>
