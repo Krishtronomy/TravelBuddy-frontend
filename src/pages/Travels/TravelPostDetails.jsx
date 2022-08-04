@@ -14,7 +14,7 @@ const TravelPostDetails = () => {
   const [triggerDelete, setTriggerDelete] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [editSuccess, setEditSuccess] = useState(false)
+  const [editSuccess, setEditSuccess] = useState(false);
   const [editForm, setEditForm] = useState({
     title: "",
     description: "",
@@ -34,8 +34,7 @@ const TravelPostDetails = () => {
       );
     });
   };
-
-  // Re-renders if the post id changes
+  console.log(post.rating)  // Re-renders if the post id changes
   useEffect(() => {
     getPost();
   }, [id, editSuccess]);
@@ -58,8 +57,8 @@ const TravelPostDetails = () => {
     setEdit(true);
     setEditForm({
       title: post.title,
-      description: post.description
-    })
+      description: post.description,
+    });
   };
 
   const handleFormChange = (event) => {
@@ -72,20 +71,21 @@ const TravelPostDetails = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("post[title]", editForm.title);
-    formData.append("post[description]", editForm.description)
-    postAPI.put(`/posts/${id}`, formData)
-    .then((response) => {
-      setEditForm({
-        title: editForm.title,
-        description: editForm.description
+    formData.append("post[description]", editForm.description);
+    postAPI
+      .put(`/posts/${id}`, formData)
+      .then((response) => {
+        setEditForm({
+          title: editForm.title,
+          description: editForm.description,
+        });
+        setEditSuccess("Successfully Updated!");
+        setEdit(false);
       })
-      setEditSuccess("Successfully Updated!")
-      setEdit(false)
-    })
-    .catch((error) => {
-      console.log(error.response.data.error)
-    })
-    setEditSuccess(false)
+      .catch((error) => {
+        console.log(error.response.data.error);
+      });
+    setEditSuccess(false);
   };
 
   return (

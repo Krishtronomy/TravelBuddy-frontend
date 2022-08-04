@@ -11,7 +11,7 @@ import { StarRating } from "./StarRating";
 const Travels = () => {
   const { store, dispatch } = useGlobalState();
   const { postsList, loading, error } = store;
-console.log(postsList)
+
   return (
     <>
       <h1>Travels page</h1>
@@ -25,7 +25,7 @@ console.log(postsList)
             {postsList.map((post) => (
               <div className="blogPost" key={post.id}>
                 <div className="BlogDetails">
-                  <Link to={`/posts/${post.id}`}>
+                  <Link to={`/posts/${post.id}`} style={{textDecoration:"none"}}>
                     <h2>{post.title}</h2>
                     {/* If a post has a image then render the URL for the image */}
                     {post.image && (

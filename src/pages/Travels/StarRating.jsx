@@ -2,7 +2,7 @@ import { Stack, Rating } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 export const StarRating = ({rating}) => {
-  const [value, setValue] = useState(4)
+  const [value, setValue] = useState(rating)
 
 // Gets rating passed down as a prop from Travels and sets the rating accordingly
   useEffect(() => {
