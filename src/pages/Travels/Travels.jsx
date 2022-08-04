@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import TravelPostDetails from "./TravelPostDetails";
 
 const Travels = () => {
   const { store, dispatch } = useGlobalState();
@@ -21,7 +22,9 @@ const Travels = () => {
     <>
       <h1>Travels page</h1>
       {loggedInUser && (
-      <NewPost />
+      <div className="buttonDiv">
+        <NewPost />
+      </div>
       )}
       {!loggedInUser && (
       <div className="create">
@@ -29,7 +32,6 @@ const Travels = () => {
         <a href="#login">Login</a>
       </div>
       )}
-
 
       <div>
         <div>{error && error}</div>
@@ -39,7 +41,7 @@ const Travels = () => {
             {postsList.map((post) => (
               <div className="blogPost" key={post.id}>
                 <div className="BlogDetails">
-                  <Link to={`/posts/${post.id}`} style={{textDecoration:"none"}}>
+                  {/* <Link to={`/posts/${post.id}`} style={{textDecoration:"none"}}> */}
                     <h2>{post.title}</h2>
                     {/* If a post has a image then render the URL for the image */}
                     {post.image && (
@@ -58,11 +60,9 @@ const Travels = () => {
                       />
                     )}
                     <p>{post.description}</p>
-                  </Link>
+                    <TravelPostDetails />
                   <StarRating rating={post.rating}/>
                 </div>
-
-                {/* <button className="deleteButton" onClick={deletePost}>delete</button> */}
               </div>
             ))}
           </div>
