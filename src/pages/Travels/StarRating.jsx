@@ -1,25 +1,21 @@
 import { Stack, Rating } from '@mui/material'
-import { useState } from 'react'
-import { useGlobalState } from "../../utils/stateContext";
+import { useEffect, useState } from 'react'
 
-export const StarRating = () => {
-  const [value, setValue] = useState(null)
-  const { dispatch } = useGlobalState();
+export const StarRating = ({rating}) => {
+  const [value, setValue] = useState(4)
 
-  const handleChange = (event ) => {
-    setValue(parseInt(event.target.value))
-    dispatch({
-      type: "setRating",
-      data: event.target.value
-    })
-  }
+// Gets rating passed down as a prop from Travels and sets the rating accordingly
+  useEffect(() => {
+    setValue(rating)
+  },[])
+
   return (
     <Stack spacing={2}>
       <Rating
         value={value}
-        onChange={handleChange}
         precision={0.5}
         style={{color:"black"}}
+        readOnly
       />
     </Stack>
   )

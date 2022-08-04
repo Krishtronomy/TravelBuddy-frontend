@@ -6,11 +6,12 @@ import NewPost from "./NewPost";
 import { Link, useNavigate } from "react-router-dom";
 import placeholder from "./placeholder.jpg";
 import { useGlobalState } from "../../utils/stateContext";
+import { StarRating } from "./StarRating";
 
 const Travels = () => {
   const { store, dispatch } = useGlobalState();
   const { postsList, loading, error } = store;
-
+console.log(postsList)
   return (
     <>
       <h1>Travels page</h1>
@@ -44,6 +45,7 @@ const Travels = () => {
                     )}
                     <p>{post.description}</p>
                   </Link>
+                  <StarRating rating={post.rating}/>
                 </div>
 
                 {/* <button className="deleteButton" onClick={deletePost}>delete</button> */}

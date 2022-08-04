@@ -70,6 +70,7 @@ const NewPost = () => {
     setTitle("");
     setDescription("");
     setImage(null);
+    setPostRating(null)
   };
 
   return (
@@ -103,11 +104,11 @@ const NewPost = () => {
               value={postRating}
               onChange={handleRatingChange}
               precision={0.5}
-              style={{ color: "black" }}
+              style={{ color: "black", justifyContent:"center" }}
             />
           </Stack>
-          {!isLoading && <button>Submit</button>}
-          {isLoading && <button disabled>Submitting Post...</button>}
+          {!isLoading && <button style={{marginTop:"5%"}}>Submit</button>}
+          {isLoading && <button style={{marginTop:"5%"}} disabled>Submitting Post...</button>}
         </form>
       </div>
     </>
