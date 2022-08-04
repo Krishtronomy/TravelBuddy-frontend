@@ -4,13 +4,10 @@ import "./Login.scss";
 import postAPI from "../../config/api";
 import SignUp from "./SignUp";
 import { useGlobalState } from "../../utils/stateContext";
-import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { width } from "@mui/system";
 
 const style = {
   position: "absolute",
@@ -136,7 +133,6 @@ const Login = () => {
                       onChange={emailChangeHandler}
                       style={{ width: "100%" }}
                     />
-                    <br></br>
                     <div>
                       <label>Password:</label>
                     </div>
@@ -147,7 +143,7 @@ const Login = () => {
                       style={{ width: "100%" }}
                     />
                     <div>
-                      <Button form="loginForm" type="submit">
+                      <Button variant="outlined" form="loginForm" type="submit">
                         Log In
                       </Button>
                     </div>
