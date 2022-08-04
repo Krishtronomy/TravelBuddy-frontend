@@ -72,6 +72,13 @@ export const reducer = (state, action) => {
                 postsList: state.postsList.filter((item) => item.id !== action.data)
             }
         }
+        case "setRating": {
+            //filters posts based on removed ID's
+            return {
+                ...state,
+                rating: action.data
+            }
+        }
         default: return state
     }
 
