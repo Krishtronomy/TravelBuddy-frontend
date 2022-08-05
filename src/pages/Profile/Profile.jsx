@@ -108,7 +108,7 @@ const Profile = () => {
 
   return (
     <>
-      <p>{loggedInUser}</p>
+
       <h1>Profile page</h1>
       {!loggedInUser && (
         <div className="create">

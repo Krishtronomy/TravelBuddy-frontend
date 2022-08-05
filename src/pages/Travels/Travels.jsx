@@ -60,8 +60,8 @@ const Travels = () => {
                       />
                     )}
                     <p>{post.description}</p>
-                    <TravelPostDetails />
                   <StarRating rating={post.rating}/>
+                    <TravelPostDetails id={post.id}/>
                 </div>
               </div>
             ))}
