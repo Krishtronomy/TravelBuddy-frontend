@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { TextField } from "@material-ui/core";
 
 const style = {
 	position: "absolute",
@@ -35,11 +36,12 @@ const SignUp = () => {
 	const [passwordMismatch, setPasswordMismatch] = useState(null);
 
 	// Handles user input within the form
-	const handleFormData = (event) => {
+	const handleFormData = (event) => {    
 		setFormData({
 			...formData,
 			[event.target.id]: event.target.value,
 		});
+    console.log(event.target.value);
 	};
 
 	// Handles form submission
@@ -93,47 +95,57 @@ const SignUp = () => {
 									id="modal-modal-description"
 									sx={{ mt: 2 }}
 								>
-									<label>Username:</label>
-									<input
-										type="text"
+									<TextField
 										id="username"
+										label="Username"
+										variant="standard"
+										type="text"
 										value={formData.username}
 										onChange={handleFormData}
-                    style={{ width: "100%" }}
+										style={{ width: "100%" }}
 									/>
-									<label>Email:</label>
-									<input
-										type="email"
+									<TextField
 										id="email"
+										label="Email"
+										variant="standard"
+										type="email"
 										value={formData.email}
 										onChange={handleFormData}
-                    style={{ width: "100%" }}
+										style={{ width: "100%" }}
 									/>
-									<label>Password:</label>
-									<input
-										type="password"
+									<TextField
 										id="password"
+										label="Password"
+										variant="standard"
+										type="password"
 										value={formData.password}
 										onChange={handleFormData}
-                    style={{ width: "100%" }}
+										style={{ width: "100%" }}
 									/>
-									<label>Confirm Password:</label>
-									<input
+									<TextField
 										id="password_confirmation"
+										label="Confirm Password"
+										variant="standard"
 										type="password"
 										value={formData.password_confirmation}
 										onChange={handleFormData}
-                    style={{ width: "100%" }}
+										style={{ width: "100%" }}
 									/>
-									<label>Tell us about yourself:</label>
-									<textarea
-										type="text"
+									<TextField
 										id="about"
+										label="Tell Us About Yourself!"
+										variant="standard"
+										type="text"
 										value={formData.about}
 										onChange={handleFormData}
-                    style={{ width: "100%" }}
+										style={{ width: "100%" }}
 									/>
-									<Button variant="outlined" form="signupform" type="submit">
+									<Button
+										sx={{ paddingTop: 2 }}
+										variant="outlined"
+										form="signupform"
+										type="submit"
+									>
 										Sign Up
 									</Button>
 									{!signUpError && <h4>{successSignIn}</h4>}

@@ -11,6 +11,10 @@ import { StarRating } from "../Travels/StarRating";
 import TravelPostDetails from "../Travels/TravelPostDetails";
 import Button from "@mui/material/Button";
 
+const theme = {
+    spacing: 8,
+  }
+
 const Profile = () => {
 	const { store, dispatch } = useGlobalState();
 	const { loggedInUser, token, id, imageUrl, about, postsList, loading } =
@@ -134,7 +138,7 @@ const Profile = () => {
 					<a href="#login">Login</a>
 				</div>
 			)}
-
+    
 			<div className="flex-container">
 				<div className="profile__container">
 					<div className="head-text">{loggedInUser}</div>
@@ -156,12 +160,13 @@ const Profile = () => {
 									/>
 								)}
 
-								<div className="buttonDiv">
+								<div>
 									<Button
 										id="imageChange"
 										variant="contained"
 										color="primary"
 										onClick={triggerImageChange}
+                                        sx={{ m: 2 }}
 									>
 										Change Profile Photo
 									</Button>
@@ -174,18 +179,21 @@ const Profile = () => {
 												multiple={false}
 												onChange={handleImageChange}
 											/>
+ 
 											<Button
 												variant="contained"
 												color="primary"
 												onClick={() =>
 													setChangeImage(false)
 												}
+                                                sx={{ m: 2 }}
 											>
 												Cancel
 											</Button>
 											<Button
 												variant="contained"
 												color="primary"
+                                                sx={{ m: 2 }}
 											>
 												Upload!
 											</Button>
@@ -193,7 +201,7 @@ const Profile = () => {
 									)}
 								</div>
 								<div className="about-section">
-									<h3>About</h3>
+									<div className="head-text">About</div>
 									<p className="about-section-text">
 										{about}
 									</p>
@@ -202,6 +210,7 @@ const Profile = () => {
 											variant="contained"
 											color="primary"
 											onClick={editClick}
+                                            sx={{ m: 2 }}
 										>
 											Edit Profile
 										</Button>
@@ -233,12 +242,14 @@ const Profile = () => {
 											variant="contained"
 											color="primary"
 											onClick={() => setEdit(false)}
+                                            sx={{ m: 2 }}
 										>
 											Cancel
 										</Button>
 										<Button
 											variant="contained"
 											color="primary"
+                                            sx={{ m: 2 }}
 										>
 											Update
 										</Button>
