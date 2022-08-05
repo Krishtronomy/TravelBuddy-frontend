@@ -180,7 +180,7 @@ const NewPost = () => {
 				</form>
 			</div>
 
-			<div className="buttonDiv">
+			<div>
 				<Button
 					variant="contained"
 					color="primary"
