@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useGlobalState } from "../../utils/stateContext";
 import placeholder from "./placeholder.jpg";
 import postAPI from "../../config/api";
@@ -118,7 +118,6 @@ const TravelPostDetails = () => {
 					onClose={handleClose}
 					aria-labelledby="modal-modal-title"
 					aria-describedby="modal-modal-description"
-          disableScrollLock
 				>
 					<Box sx={style}>
 					  <div className="create">
@@ -197,6 +196,7 @@ const TravelPostDetails = () => {
           variant="contained"
           color="primary"
           onClick={handleOpen}
+          component={Link} to={`/posts/${post.id}`}
         >
           See More
         </Button>

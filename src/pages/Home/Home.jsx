@@ -58,7 +58,7 @@ const Home = () => {
                     <span><Pace ms={35}>{"What attractions can we visit nearby? 🎟"}</Pace></span>
                 </div>
                 <Box sx={{ m: 8 }}>
-                <Button variant="contained" color="primary" href="#explore" style={{ fontSize: '40px' }}>
+                <Button className="button" variant="contained" color="primary" href="#explore" style={{ fontSize: '40px' }}>
                     Let's Go!
                 </Button>
                 </Box>

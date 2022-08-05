@@ -60,6 +60,7 @@ const Travels = () => {
                       />
                     )}
                     <p>{post.description}</p>
+                  {/* </Link> */}
                     <TravelPostDetails />
                   <StarRating rating={post.rating}/>
                 </div>
