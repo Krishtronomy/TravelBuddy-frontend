@@ -6,6 +6,7 @@ import "./Profile.scss";
 import { useGlobalState } from "../../utils/stateContext";
 import postAPI from "../../config/api";
 import placeholder from "./profile-placeholder.png";
+import postPlaceholder from "../Travels/placeholder.jpg";
 import { StarRating } from "../Travels/StarRating";
 import TravelPostDetails from "../Travels/TravelPostDetails";
 
@@ -212,7 +213,7 @@ const Profile = () => {
                     {/* Else if a post has no image then render a placeholder image */}
                     {!post.image && (
                       <img
-                        src={placeholder}
+                        src={postPlaceholder}
                         style={{ width: 300, height: 250 }}
                         alt="location image"
                       />
