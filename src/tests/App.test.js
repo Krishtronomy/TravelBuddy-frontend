@@ -1,9 +1,7 @@
 import React from "react";
-import { ReactDOM } from "react-dom";
-import { render, screen } from "@testing-library/react";
+import { render} from "@testing-library/react";
 import Home from "../../src/pages/Home/Home"
-import Travels from "../../src/pages/Travels/Travels"
-import Login from "../pages/Login/Login";
+
 let { getPosts, createPost } = require("../services/postsServices");
 
 
