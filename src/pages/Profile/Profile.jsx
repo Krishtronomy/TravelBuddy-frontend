@@ -9,6 +9,7 @@ import placeholder from "./profile-placeholder.png";
 import postPlaceholder from "../Travels/placeholder.jpg";
 import { StarRating } from "../Travels/StarRating";
 import TravelPostDetails from "../Travels/TravelPostDetails";
+import Button from "@mui/material/Button";
 
 const Profile = () => {
 	const { store, dispatch } = useGlobalState();
@@ -133,136 +134,166 @@ const Profile = () => {
 					<a href="#login">Login</a>
 				</div>
 			)}
-            
-        <div className="flex-container">
-			<div className="profile__container">
-				<div className="head-text">{loggedInUser}</div>
-				{loggedInUser && (
-					<>
-						<div className="create">
-							{(imageUrl == null || imageUrl == "null") && (
-								<img
-									src={placeholder}
-									className="profile-pic"
-									alt="profile image"
-								/>
-							)}
-							{imageUrl && imageUrl != "null" && (
-								<img
-									src={imageUrl}
-									className="profile-pic"
-									alt="profile image"
-								/>
-							)}
 
-							<div>
-								<button
-									id="imageChange"
-									onClick={triggerImageChange}
-								>
-									Change Profile Photo
-								</button>
-								{changeImage && (
-									<form onSubmit={handleImageSubmit}>
-										<input
-											className="file"
-											type="file"
-											accept="image/*"
-											multiple={false}
-											onChange={handleImageChange}
-										/>
-										<button
-											onClick={() =>
-												setChangeImage(false)
-											}
+			<div className="flex-container">
+				<div className="profile__container">
+					<div className="head-text">{loggedInUser}</div>
+					{loggedInUser && (
+						<>
+							<div className="create">
+								{(imageUrl == null || imageUrl == "null") && (
+									<img
+										src={placeholder}
+										className="profile-pic"
+										alt="profile image"
+									/>
+								)}
+								{imageUrl && imageUrl != "null" && (
+									<img
+										src={imageUrl}
+										className="profile-pic"
+										alt="profile image"
+									/>
+								)}
+
+								<div className="buttonDiv">
+									<Button
+										id="imageChange"
+										variant="contained"
+										color="primary"
+										onClick={triggerImageChange}
+									>
+										Change Profile Photo
+									</Button>
+									{changeImage && (
+										<form onSubmit={handleImageSubmit}>
+											<input
+												className="file"
+												type="file"
+												accept="image/*"
+												multiple={false}
+												onChange={handleImageChange}
+											/>
+											<Button
+												variant="contained"
+												color="primary"
+												onClick={() =>
+													setChangeImage(false)
+												}
+											>
+												Cancel
+											</Button>
+											<Button
+												variant="contained"
+												color="primary"
+											>
+												Upload!
+											</Button>
+										</form>
+									)}
+								</div>
+								<div className="about-section">
+									<h3>About</h3>
+									<p className="about-section-text">
+										{about}
+									</p>
+									{!edit && (
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={editClick}
 										>
-											Cancel
-										</button>
-										<button>Upload!</button>
-									</form>
-								)}
-							</div>
-							<div>
-								<h3>About</h3>
-								<p className="about-section">{about}</p>
-								{!edit && (
-									<button onClick={editClick}>
-										Edit Profile
-									</button>
-								)}
-							</div>
-						</div>
-
-						<div className="about-section">
-							{edit && (
-								<form
-									className="create"
-									onSubmit={handleEditSubmit}
-								>
-									<label>Username:</label>
-									<input
-										type="text"
-										id="username"
-										value={editForm.username}
-										onChange={handleFormChange}
-									/>
-									<label>About:</label>
-									<textarea
-										type="text"
-										id="about"
-										value={editForm.about}
-										onChange={handleFormChange}
-									/>
-									<button onClick={() => setEdit(false)}>
-										Cancel
-									</button>
-									<button>Update</button>
-								</form>
-							)}
-							{successfulEdit.success && (
-								<p>{successfulEdit.successMessage}</p>
-							)}
-						</div>
-					</>
-				)}
-			</div>
-
-			<div className="post__container">
-				<div className="head-text">My Posts</div>
-				<div>{error && error}</div>
-				{loading && <div> Loading... </div>}
-				{usersPosts && (
-					<div>
-						{usersPosts.map((post) => (
-							<div className="blogPost" key={post.id}>
-								<div className="BlogDetails">
-									<h2>{post.title}</h2>
-									{/* If a post has a image then render the URL for the image */}
-									{post.image && (
-										<img
-											src={post.image.url}
-											style={{ width: 300, height: 250 }}
-											alt="location image"
-										/>
+											Edit Profile
+										</Button>
 									)}
-									{/* Else if a post has no image then render a placeholder image */}
-									{!post.image && (
-										<img
-											src={postPlaceholder}
-											style={{ width: 300, height: 250 }}
-											alt="location image"
-										/>
-									)}
-									<p>{post.description}</p>
-									<StarRating rating={post.rating} />
-									<TravelPostDetails id={post.id} />
 								</div>
 							</div>
-						))}
-					</div>
-				)}
+
+							<div className="about-section">
+								{edit && (
+									<form
+										className="create"
+										onSubmit={handleEditSubmit}
+									>
+										<label>Username:</label>
+										<input
+											type="text"
+											id="username"
+											value={editForm.username}
+											onChange={handleFormChange}
+										/>
+										<label>About:</label>
+										<textarea
+											type="text"
+											id="about"
+											value={editForm.about}
+											onChange={handleFormChange}
+										/>
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={() => setEdit(false)}
+										>
+											Cancel
+										</Button>
+										<Button
+											variant="contained"
+											color="primary"
+										>
+											Update
+										</Button>
+									</form>
+								)}
+								{successfulEdit.success && (
+									<p>{successfulEdit.successMessage}</p>
+								)}
+							</div>
+						</>
+					)}
+				</div>
+
+				<div className="post__container">
+					<div className="head-text">My Posts</div>
+					<div>{error && error}</div>
+					{loading && <div> Loading... </div>}
+					{usersPosts && (
+						<div className="post__container-content">
+							{usersPosts.map((post) => (
+								<div className="blogPost" key={post.id}>
+									<div className="BlogDetails">
+										<h2>{post.title}</h2>
+										{/* If a post has a image then render the URL for the image */}
+										{post.image && (
+											<img
+												src={post.image.url}
+												style={{
+													width: 300,
+													height: 250,
+												}}
+												alt="location image"
+											/>
+										)}
+										{/* Else if a post has no image then render a placeholder image */}
+										{!post.image && (
+											<img
+												src={postPlaceholder}
+												style={{
+													width: 300,
+													height: 250,
+												}}
+												alt="location image"
+											/>
+										)}
+										<p>{post.description}</p>
+										<StarRating rating={post.rating} />
+										<TravelPostDetails id={post.id} />
+									</div>
+								</div>
+							))}
+						</div>
+					)}
+				</div>
 			</div>
-        </div>
 		</>
 	);
 };

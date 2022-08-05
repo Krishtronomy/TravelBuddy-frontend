@@ -1,13 +1,12 @@
-
- button {
-    background: #f1356d;
-    color: #fff;
-    border: 0;
-    padding: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 1.5rem;
-  }
+button {
+	background: #f1356d;
+	color: #fff;
+	border: 0;
+	padding: 8px;
+	border-radius: 8px;
+	cursor: pointer;
+	margin: 1.5rem;
+}
 
 .app__profile {
 	flex: 1;
@@ -16,43 +15,54 @@
 }
 
 .profile-pic {
-  width: 150px;
-  height: 150px;
-  border-radius: 100%; 
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
 }
 
 .profile__container {
-  padding: 1rem 2rem;
-  margin: 7rem;
-  background: var(--white-color);
-  border-radius: 15px;
-  width: auto;
-  height: 50vh;
-  z-index: 100;
+	padding: 1rem 2rem;
+	margin: 2rem;
+	background: var(--white-color);
+	border-radius: 15px;
+	width: 40vw;
+	height: 50vh;
+	overflow-y: scroll;
+	z-index: 100;
 
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
 .post__container {
-  padding: 1rem 2rem;
-  margin: 7rem;
-  background: var(--white-color);
-  border-radius: 15px;
-  width: auto;
-  height: auto;
-  z-index: 100;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem 2rem;
+	margin: 2rem;
+	background: var(--white-color);
+	border-radius: 15px;
+	width: 40vw;
+	max-height: 100%;
+	height: 100vh;
+	overflow-y: scroll;
+	z-index: 100;
 
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
-#imageChange{
-font-size:x-small
+.post__container-content {
+	max-height: 95%;
+}
+
+#imageChange {
+	font-size: x-small;
 }
 
 .flex-container {
-  display: flex;
+	display: flex;
 }
 
 .about-section {
-  overflow-y: scroll;
+	overflow-y: scroll;
 }
