@@ -50,6 +50,7 @@ const SignUp = () => {
     if (formData.password !== formData.password_confirmation) {
       setPasswordMismatch("Password does not match Password Confirmation");
     } else {
+		// post request with formdata sent to backend API
       postAPI
         .post("/sign_up", formData)
         .then((response) => {
@@ -59,6 +60,7 @@ const SignUp = () => {
           setFormData(initialFormState);
           setSuccessSignIn("Sign up Successful! You may now login.");
         })
+		// Catch error and render errors accordingly
         .catch((error) => {
 			setPasswordMismatch(null)
           if (error.response.data.email == "has already been taken") {

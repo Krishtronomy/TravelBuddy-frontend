@@ -2,40 +2,11 @@ import * as React from "react";
 import { useState} from "react";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { AppBar, CardActionArea, Toolbar } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import "./Navigation.scss";
 import { getPosts } from "../../services/postsServices";
 import { useGlobalState } from "../../utils/stateContext";
 
-// const Navigation = () => {
-//   return (
-//     <>
-//       <AppBar position="sticky">
-//         <Toolbar>
-//           <ul>
-//             <li>
-//               <Link to="pages/home">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="pages/explore">Explore</Link>
-//             </li>
-//             <li>
-//               <Link to="pages/travels">Travels</Link>
-//             </li>
-//             <li>
-//               <Link to="pages/profile">Profile</Link>
-//             </li>
-//             <li>
-//               <Link to="pages/login">Login/Sign Out</Link>
-//             </li>
-//           </ul>
-//         </Toolbar>
-//       </AppBar>
-//     </>
-//   );
-// };
 
 const Navigation = () => {
 	const location = useLocation();
@@ -59,16 +30,15 @@ const Navigation = () => {
     // Main Navbar 
 	  <nav className="app__navbar">
 			<div className="app__navbar-logo">
-				{/* <img src={images.logo} alt="logo" /> */}
 			</div>
 			<ul className="app__navbar-links">
-				{/* {["home", "explore", "travels", "profile", sessionStorage.getItem("user") || "login" ].map((item) => ( */}
 				{["home", "explore", "travels", "profile"].map((item) => (
 					<li className="app__flex p-text" key={`link-${item}`}>
 						<div />
 						<a href={`#${item}`}>{item} </a>
 					</li>
 				))}
+				{/* If a user is logged then render "Log Out, otherwise render "Log in" */}
 				{loggedInUser? <><li className="app__flex p-text"><div /><a href={`#login`}>Log Out</a></li></>:<><li className="app__flex p-text"><div /><a href={`#login`}>Log In</a></li></>}
 			</ul>
 

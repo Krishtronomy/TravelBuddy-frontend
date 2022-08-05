@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Profile.scss";
 import { useGlobalState } from "../../utils/stateContext";
@@ -19,12 +17,12 @@ const Profile = () => {
   const { store, dispatch } = useGlobalState();
   const { loggedInUser, token, id, imageUrl, about, postsList, loading } =
     store;
-
+// Set initial form state
   const initialFormState = {
     username: loggedInUser,
     about: about,
   };
-
+// Set initial success state
   const successState = {
     success: null,
     successMessage: "",

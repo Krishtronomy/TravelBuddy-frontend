@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Travels.scss";
 import NewPost from "./NewPost";
-import { Link, useNavigate } from "react-router-dom";
 import placeholder from "./placeholder.jpg";
 import { useGlobalState } from "../../utils/stateContext";
 import { StarRating } from "./StarRating";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import TravelPostDetails from "./TravelPostDetails";
 
 const Travels = () => {
-	const { store, dispatch } = useGlobalState();
+	const { store} = useGlobalState();
 	const { postsList, loading, error } = store;
 	const { loggedInUser } = store;
 
