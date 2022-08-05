@@ -160,6 +160,7 @@ const TravelPostDetails = ({ id }) => {
 									</Button>
 									{edit && (
 										<form
+											id="editPostForm"
 											form="editform"
 											className="create"
 											onSubmit={handleEditSubmit}
@@ -186,6 +187,8 @@ const TravelPostDetails = ({ id }) => {
 												Cancel
 											</Button>
 											<Button
+												form="editPostForm"
+												type="submit"
 												variant="contained"
 												color="primary"
 											>
