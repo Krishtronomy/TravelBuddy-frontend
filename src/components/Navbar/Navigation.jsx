@@ -108,7 +108,7 @@ export default Navigation;
 // Fetches posts from database and sets the values in the reducer Store
 const displayPosts = (location, dispatch) => {
 	return () => {
-		if (location.hash == ("") || location.hash == ("#travels")){
+		if (location.hash == ("") || location.hash.includes("#")){
 			getPosts()
 			.then(posts => {
 				dispatch({
