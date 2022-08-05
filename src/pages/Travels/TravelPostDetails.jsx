@@ -9,109 +9,107 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const style = {
-  position: "absolute",
-  overflow: "scroll",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+	position: "absolute",
+	overflow: "scroll",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	width: 600,
+	bgcolor: "background.paper",
+	border: "2px solid #000",
+	boxShadow: 24,
+	p: 4,
 };
 
-const TravelPostDetails = ({id}) => {
-  const { store, dispatch } = useGlobalState();
-  const { loggedInUser } = store;
-//   const { id } = useParams();
-  const navigate = useNavigate();
-  const [post, setPost] = useState([]);
-  const [date, setDate] = useState();
-  const [triggerDelete, setTriggerDelete] = useState(false);
-  const [deleteSuccess, setDeleteSuccess] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [editSuccess, setEditSuccess] = useState(false);
-  const [editForm, setEditForm] = useState({
-    title: "",
-    description: "",
-  });
+const TravelPostDetails = ({ id }) => {
+	const { store, dispatch } = useGlobalState();
+	const { loggedInUser } = store;
+	//   const { id } = useParams();
+	const navigate = useNavigate();
+	const [post, setPost] = useState([]);
+	const [date, setDate] = useState();
+	const [triggerDelete, setTriggerDelete] = useState(false);
+	const [deleteSuccess, setDeleteSuccess] = useState(false);
+	const [edit, setEdit] = useState(false);
+	const [editSuccess, setEditSuccess] = useState(false);
+	const [editForm, setEditForm] = useState({
+		title: "",
+		description: "",
+	});
 
-  // Gets the post based on post id
-  const getPost = () => {
-    postAPI.get(`/posts/${id}`).then((response) => {
-      setPost(response.data);
-      setDate(
-        new Date(response.data.posted).toLocaleDateString("en-us", {
-          weekday: "long",
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      );
-    });
-  };
-  // Re-renders if the post id changes
-  useEffect(() => {
-    getPost();
-  }, [id, editSuccess]);
+	// Gets the post based on post id
+	const getPost = () => {
+		postAPI.get(`/posts/${id}`).then((response) => {
+			setPost(response.data);
+			setDate(
+				new Date(response.data.posted).toLocaleDateString("en-us", {
+					weekday: "long",
+					year: "numeric",
+					month: "short",
+					day: "numeric",
+				})
+			);
+		});
+	};
+	// Re-renders if the post id changes
+	useEffect(() => {
+		getPost();
+	}, [id, editSuccess]);
 
+	// Handles deleting a post
+	const handleDelete = () => {
+		setTriggerDelete(true);
+		if (triggerDelete) {
+			postAPI.delete(`/posts/${id}`).then((response) => {
+				console.log(response);
+				setTriggerDelete(false);
+				setDeleteSuccess("Post successfully deleted!");
+				navigate("/#travels");
+			});
+		}
+	};
 
-  // Handles deleting a post
-  const handleDelete = () => {
-    setTriggerDelete(true);
-    if (triggerDelete) {
-      postAPI.delete(`/posts/${id}`).then((response) => {
-        console.log(response);
-        setTriggerDelete(false);
-        setDeleteSuccess("Post successfully deleted!");
-        navigate("/#travels");
-      });
-    }
-  };
+	const editClick = (event) => {
+		event.preventDefault();
+		setEdit(true);
+		setEditForm({
+			title: post.title,
+			description: post.description,
+		});
+	};
 
-  const editClick = (event) => {
-    event.preventDefault();
-    setEdit(true);
-    setEditForm({
-      title: post.title,
-      description: post.description,
-    });
-  };
+	const handleFormChange = (event) => {
+		setEditForm({
+			...editForm,
+			[event.target.id]: event.target.value,
+		});
+	};
+	const handleEditSubmit = (event) => {
+		event.preventDefault();
+		const formData = new FormData();
+		formData.append("post[title]", editForm.title);
+		formData.append("post[description]", editForm.description);
+		postAPI
+			.put(`/posts/${id}`, formData)
+			.then((response) => {
+				setEditForm({
+					title: editForm.title,
+					description: editForm.description,
+				});
+				setEditSuccess("Successfully Updated!");
+				setEdit(false);
+			})
+			.catch((error) => {
+				console.log(error.response.data.error);
+			});
+		setEditSuccess(false);
+	};
 
-  const handleFormChange = (event) => {
-    setEditForm({
-      ...editForm,
-      [event.target.id]: event.target.value,
-    });
-  };
-  const handleEditSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("post[title]", editForm.title);
-    formData.append("post[description]", editForm.description);
-    postAPI
-      .put(`/posts/${id}`, formData)
-      .then((response) => {
-        setEditForm({
-          title: editForm.title,
-          description: editForm.description,
-        });
-        setEditSuccess("Successfully Updated!");
-        setEdit(false);
-      })
-      .catch((error) => {
-        console.log(error.response.data.error);
-      });
-    setEditSuccess(false);
-  };
-  
-  // Set Modal state
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  
-  
+	// Set Modal state
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	return (
 		<>
 			<div>
@@ -122,24 +120,44 @@ const TravelPostDetails = ({id}) => {
 					aria-describedby="modal-modal-description"
 				>
 					<Box sx={style}>
-					  <div className="create">
+						<div className="create">
 							{deleteSuccess && <p>{deleteSuccess}</p>}
 							<h1>{post.title} </h1>
-							{!post.image && <img src={placeholder} width="400" height="400"/>}
-							{post.image && <img src={post.image} width="400" height="400"/>}
+							{!post.image && (
+								<img
+									src={placeholder}
+									width="400"
+									height="400"
+								/>
+							)}
+							{post.image && (
+								<img
+									src={post.image}
+									width="400"
+									height="400"
+								/>
+							)}
 							<h2>Description:</h2>
 							<h3>{post.description}</h3>
 							<h5>Created by:</h5>
 							<b>{post.author}</b>
 							<p>{date}</p>
 							{post.author == loggedInUser && (
-								<div>
-									<button onClick={editClick}>Edit</button>
-									<button
+								<div className="buttonDiv">
+									<Button
+										variant="contained"
+										color="primary"
+										onClick={editClick}
+									>
+										Edit
+									</Button>
+									<Button
+										variant="contained"
+                    color="error"
 										onClick={() => setTriggerDelete(true)}
 									>
 										Delete
-									</button>
+									</Button>
 									{edit && (
 										<form
 											form="editform"
@@ -160,12 +178,19 @@ const TravelPostDetails = ({id}) => {
 												value={editForm.description}
 												onChange={handleFormChange}
 											/>
-											<button
+											<Button
+												variant="contained"
+												color="primary"
 												onClick={() => setEdit(false)}
 											>
 												Cancel
-											</button>
-											<button>Update</button>
+											</Button>
+											<Button
+												variant="contained"
+												color="primary"
+											>
+												Update
+											</Button>
 										</form>
 									)}
 									{triggerDelete && (
@@ -174,16 +199,20 @@ const TravelPostDetails = ({id}) => {
 												Are you sure you want to delete
 												this?
 											</p>
-											<button
+											<Button
 												onClick={() =>
 													setTriggerDelete(false)
 												}
 											>
 												Cancel
-											</button>
-											<button onClick={handleDelete}>
+											</Button>
+											<Button
+												variant="contained"
+												color="primary"
+												onClick={handleDelete}
+											>
 												Yes
-											</button>
+											</Button>
 										</div>
 									)}
 								</div>
@@ -193,18 +222,17 @@ const TravelPostDetails = ({id}) => {
 				</Modal>
 			</div>
 
-      <div className="buttonDiv">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-        >
-
-          See More
-        </Button>
-      </div>
-    </>
-  );
+			<div className="buttonDiv">
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={handleOpen}
+				>
+					See More
+				</Button>
+			</div>
+		</>
+	);
 };
 
 export default TravelPostDetails;
