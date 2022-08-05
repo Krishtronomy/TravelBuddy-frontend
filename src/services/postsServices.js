@@ -5,7 +5,7 @@ export async function getPosts(){
     return response.data
 }
 
-// export async function createPost(data){
-//     const response = await postAPI.post('/create')
-//     return response.data
-// }
+export async function createPost(data){
+    const response = await postAPI.post('/create')
+    return response.data
+}
