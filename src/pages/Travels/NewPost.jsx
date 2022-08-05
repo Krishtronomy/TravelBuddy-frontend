@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-	BrowserRouter as Router,
-	Route,
-	Routes,
-	useNavigate,
-} from "react-router-dom";
+import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import { Stack, Rating } from "@mui/material";
-import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Travels.scss";
 import postAPI from "../../config/api";
-import { StarRating } from "./StarRating";
 import { useGlobalState } from "../../utils/stateContext";
-import { createPost } from "../../services/postsServices";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -38,22 +30,25 @@ const NewPost = () => {
 	const { dispatch } = useGlobalState();
 	const [postRating, setPostRating] = useState(null);
 
+	// Handle title change via user input
 	const handleTitleChange = (event) => {
 		setTitle(event.target.value);
 	};
 
+	// Handle description change via user input
 	const handleDescriptionChange = (event) => {
 		setDescription(event.target.value);
 	};
-
+// Handle image uploaded
 	const handleImageChange = (event) => {
 		setImage({ image: event.target.files[0] });
 	};
-
+// Handle the rating selection system 
 	const handleRatingChange = (event) => {
 		setPostRating(parseInt(event.target.value));
 	};
 
+	// Set config for header for post request as it includes an image
 	const config = {
 		headers: { "Content-Type": "multipart/form-data" },
 	};

@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { AppWrap, MotionWrap } from "../../wrapper";
 import "./Login.scss";
 import postAPI from "../../config/api";
@@ -55,12 +55,14 @@ const Login = () => {
 		postAPI
 			.post("/sign_in", login)
 			.then((response) => {
+        // Persist items in sessionStorage incase information fails to render/re-render
 				sessionStorage.setItem("id", response.data.id);
 				sessionStorage.setItem("token", response.data.jwt);
 				sessionStorage.setItem("user", response.data.username);
 				sessionStorage.setItem("about", response.data.about);
 				sessionStorage.setItem("imageUrl", response.data.imageUrl);
 				setLoggedInUser(response.data.username);
+        // dispatch items into reducer Store
 				dispatch({
 					type: "setLoggedInUser",
 					data: response.data.username,

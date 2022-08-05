@@ -44,28 +44,33 @@ const SignUp = () => {
     console.log(event.target.value);
 	};
 
-	// Handles form submission
-	const submitFormHandler = (event) => {
-		event.preventDefault();
-		if (formData.password !== formData.password_confirmation) {
-			setPasswordMismatch(
-				"Password does not match Password Confirmation"
-			);
-		} else {
-			postAPI
-				.post("/sign_up", formData)
-				.then((response) => {
-					setSignUpError(null);
-					setPasswordMismatch(null);
-					setFormData(initialFormState);
-					setSuccessSignIn("Sign up Successful! You may now login.");
-				})
-				.catch((error) => {
-					setSignUpError(error.response.data.error);
-					console.log(signUpError);
-				});
-		}
-	};
+  // Handles form submission
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    if (formData.password !== formData.password_confirmation) {
+      setPasswordMismatch("Password does not match Password Confirmation");
+    } else {
+		// post request with formdata sent to backend API
+      postAPI
+        .post("/sign_up", formData)
+        .then((response) => {
+          setSignUpError(null);
+          setPasswordMismatch(null);
+		  setSignUpError(null)
+          setFormData(initialFormState);
+          setSuccessSignIn("Sign up Successful! You may now login.");
+        })
+		// Catch error and render errors accordingly
+        .catch((error) => {
+			setPasswordMismatch(null)
+          if (error.response.data.email == "has already been taken") {
+            setSignUpError("Email has already been taken");
+          } else {
+            setSignUpError("Sorry an error occurred, please try again.");
+          }
+        });
+    }
+  };
 
 	// // Set Modal state
 	const [open, setOpen] = useState("");

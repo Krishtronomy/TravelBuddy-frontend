@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useGlobalState } from "../../utils/stateContext";
 import placeholder from "./placeholder.jpg";
 import postAPI from "../../config/api";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+
 
 const style = {
 	position: "absolute",
@@ -22,9 +22,8 @@ const style = {
 };
 
 const TravelPostDetails = ({ id }) => {
-	const { store, dispatch } = useGlobalState();
+	const { store } = useGlobalState();
 	const { loggedInUser } = store;
-	//   const { id } = useParams();
 	const navigate = useNavigate();
 	const [post, setPost] = useState([]);
 	const [date, setDate] = useState();
@@ -68,7 +67,7 @@ const TravelPostDetails = ({ id }) => {
 			});
 		}
 	};
-
+// Renders edit input fields if user clicks on button
 	const editClick = (event) => {
 		event.preventDefault();
 		setEdit(true);
@@ -77,13 +76,15 @@ const TravelPostDetails = ({ id }) => {
 			description: post.description,
 		});
 	};
-
+// Handles input field change
 	const handleFormChange = (event) => {
 		setEditForm({
 			...editForm,
 			[event.target.id]: event.target.value,
 		});
 	};
+
+	// Handles submitting the new details via post request to backend API
 	const handleEditSubmit = (event) => {
 		event.preventDefault();
 		const formData = new FormData();
@@ -160,6 +161,7 @@ const TravelPostDetails = ({ id }) => {
 									</Button>
 									{edit && (
 										<form
+											id="editPostForm"
 											form="editform"
 											className="create"
 											onSubmit={handleEditSubmit}
@@ -186,6 +188,8 @@ const TravelPostDetails = ({ id }) => {
 												Cancel
 											</Button>
 											<Button
+												form="editPostForm"
+												type="submit"
 												variant="contained"
 												color="primary"
 											>
