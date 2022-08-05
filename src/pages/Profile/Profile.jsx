@@ -6,10 +6,13 @@ import "./Profile.scss";
 import { useGlobalState } from "../../utils/stateContext";
 import postAPI from "../../config/api";
 import placeholder from "./profile-placeholder.png";
+import { StarRating } from "../Travels/StarRating";
+import TravelPostDetails from "../Travels/TravelPostDetails";
 
 const Profile = () => {
   const { store, dispatch } = useGlobalState();
-  const { loggedInUser, token, id, imageUrl, about } = store;
+  const { loggedInUser, token, id, imageUrl, about, postsList, loading } =
+    store;
 
   const initialFormState = {
     username: loggedInUser,
@@ -26,7 +29,19 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [changeImage, setChangeImage] = useState(false);
+  const [usersPosts, setUsersPosts] = useState([]);
 
+  // Filter users posts based on current logged in userID
+  const filterUsersPosts = () => {
+    setUsersPosts(postsList.filter((post) => post.user_id == id));
+  };
+
+  // Rerender when postsLists updates or loggedInUser updates
+  useEffect(() => {
+    filterUsersPosts();
+  }, [postsList, loggedInUser]);
+
+  //Sets edit mode to true to then render edit and update buttons
   const editClick = (event) => {
     event.preventDefault();
     setEdit(true);
@@ -47,6 +62,8 @@ const Profile = () => {
   const handleImageChange = (event) => {
     setImage({ image: event.target.files[0] });
   };
+
+  // Sets the headers for when making requests to the API
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -108,7 +125,6 @@ const Profile = () => {
 
   return (
     <>
-
       <h1>Profile page</h1>
       {!loggedInUser && (
         <div className="create">
@@ -150,32 +166,67 @@ const Profile = () => {
           <h3>About</h3>
           <p className="about-section">{about}</p>
           {!edit && <button onClick={editClick}>Edit Profile</button>}
+          <h1>My Posts</h1>
+          {/* </div>
+      )} */}
+          <div>
+            {edit && (
+              <form className="create" onSubmit={handleEditSubmit}>
+                <label>Username:</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={editForm.username}
+                  onChange={handleFormChange}
+                />
+                <label>About:</label>
+                <textarea
+                  type="text"
+                  id="about"
+                  value={editForm.about}
+                  onChange={handleFormChange}
+                />
+                <button onClick={() => setEdit(false)}>Cancel</button>
+                <button>Update</button>
+              </form>
+            )}
+            {successfulEdit.success && <p>{successfulEdit.successMessage}</p>}
+          </div>
+          <div>{error && error}</div>
+          {loading && <div> Loading... </div>}
+          {usersPosts && (
+            <div>
+              {usersPosts.map((post) => (
+                <div className="blogPost" key={post.id}>
+                  <div className="BlogDetails">
+                    {/* <Link to={`/posts/${post.id}`} style={{textDecoration:"none"}}> */}
+                    <h2>{post.title}</h2>
+                    {/* If a post has a image then render the URL for the image */}
+                    {post.image && (
+                      <img
+                        src={post.image.url}
+                        style={{ width: 300, height: 250 }}
+                        alt="location image"
+                      />
+                    )}
+                    {/* Else if a post has no image then render a placeholder image */}
+                    {!post.image && (
+                      <img
+                        src={placeholder}
+                        style={{ width: 300, height: 250 }}
+                        alt="location image"
+                      />
+                    )}
+                    <p>{post.description}</p>
+                    <StarRating rating={post.rating} />
+                    <TravelPostDetails id={post.id}/>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
-
-      <div>
-        {edit && (
-          <form className="create" onSubmit={handleEditSubmit}>
-            <label>Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={editForm.username}
-              onChange={handleFormChange}
-            />
-            <label>About:</label>
-            <textarea
-              type="text"
-              id="about"
-              value={editForm.about}
-              onChange={handleFormChange}
-            />
-            <button onClick={() => setEdit(false)}>Cancel</button>
-            <button>Update</button>
-          </form>
-        )}
-        {successfulEdit.success && <p>{successfulEdit.successMessage}</p>}
-      </div>
     </>
   );
 };
