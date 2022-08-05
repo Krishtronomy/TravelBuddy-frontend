@@ -9,107 +9,109 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const style = {
-	position: "absolute",
-  overflow:'scroll',
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 600,
-	bgcolor: "background.paper",
-	border: "2px solid #000",
-	boxShadow: 24,
-	p: 4,
+  position: "absolute",
+  overflow: "scroll",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
 };
 
-const TravelPostDetails = () => {
-	const { store, dispatch } = useGlobalState();
-	const { loggedInUser } = store;
-	const { id } = useParams();
-	const navigate = useNavigate();
-	const [post, setPost] = useState([]);
-	const [date, setDate] = useState();
-	const [triggerDelete, setTriggerDelete] = useState(false);
-	const [deleteSuccess, setDeleteSuccess] = useState(false);
-	const [edit, setEdit] = useState(false);
-	const [editSuccess, setEditSuccess] = useState(false);
-	const [editForm, setEditForm] = useState({
-		title: "",
-		description: "",
-	});
+const TravelPostDetails = ({id}) => {
+  const { store, dispatch } = useGlobalState();
+  const { loggedInUser } = store;
+//   const { id } = useParams();
+  const navigate = useNavigate();
+  const [post, setPost] = useState([]);
+  const [date, setDate] = useState();
+  const [triggerDelete, setTriggerDelete] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [editSuccess, setEditSuccess] = useState(false);
+  const [editForm, setEditForm] = useState({
+    title: "",
+    description: "",
+  });
 
-	// Gets the post based on post id
-	const getPost = () => {
-		postAPI.get(`/posts/${id}`).then((response) => {
-			setPost(response.data);
-			setDate(
-				new Date(response.data.posted).toLocaleDateString("en-us", {
-					weekday: "long",
-					year: "numeric",
-					month: "short",
-					day: "numeric",
-				})
-			);
-		});
-	};
-	console.log(post.rating); // Re-renders if the post id changes
-	useEffect(() => {
-		getPost();
-	}, [id, editSuccess]);
+  // Gets the post based on post id
+  const getPost = () => {
+    postAPI.get(`/posts/${id}`).then((response) => {
+      setPost(response.data);
+      setDate(
+        new Date(response.data.posted).toLocaleDateString("en-us", {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      );
+    });
+  };
+  // Re-renders if the post id changes
+  useEffect(() => {
+    getPost();
+  }, [id, editSuccess]);
 
-	// Handles deleting a post
-	const handleDelete = () => {
-		setTriggerDelete(true);
-		if (triggerDelete) {
-			postAPI.delete(`/posts/${id}`).then((response) => {
-				console.log(response);
-				setTriggerDelete(false);
-				setDeleteSuccess("Post successfully deleted!");
-				navigate("/#travels");
-			});
-		}
-	};
 
-	const editClick = (event) => {
-		event.preventDefault();
-		setEdit(true);
-		setEditForm({
-			title: post.title,
-			description: post.description,
-		});
-	};
+  // Handles deleting a post
+  const handleDelete = () => {
+    setTriggerDelete(true);
+    if (triggerDelete) {
+      postAPI.delete(`/posts/${id}`).then((response) => {
+        console.log(response);
+        setTriggerDelete(false);
+        setDeleteSuccess("Post successfully deleted!");
+        navigate("/#travels");
+      });
+    }
+  };
 
-	const handleFormChange = (event) => {
-		setEditForm({
-			...editForm,
-			[event.target.id]: event.target.value,
-		});
-	};
-	const handleEditSubmit = (event) => {
-		event.preventDefault();
-		const formData = new FormData();
-		formData.append("post[title]", editForm.title);
-		formData.append("post[description]", editForm.description);
-		postAPI
-			.put(`/posts/${id}`, formData)
-			.then((response) => {
-				setEditForm({
-					title: editForm.title,
-					description: editForm.description,
-				});
-				setEditSuccess("Successfully Updated!");
-				setEdit(false);
-			})
-			.catch((error) => {
-				console.log(error.response.data.error);
-			});
-		setEditSuccess(false);
-	};
+  const editClick = (event) => {
+    event.preventDefault();
+    setEdit(true);
+    setEditForm({
+      title: post.title,
+      description: post.description,
+    });
+  };
 
-	// // Set Modal state
-	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
-
+  const handleFormChange = (event) => {
+    setEditForm({
+      ...editForm,
+      [event.target.id]: event.target.value,
+    });
+  };
+  const handleEditSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("post[title]", editForm.title);
+    formData.append("post[description]", editForm.description);
+    postAPI
+      .put(`/posts/${id}`, formData)
+      .then((response) => {
+        setEditForm({
+          title: editForm.title,
+          description: editForm.description,
+        });
+        setEditSuccess("Successfully Updated!");
+        setEdit(false);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+      });
+    setEditSuccess(false);
+  };
+  
+  // Set Modal state
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
+  
 	return (
 		<>
 			<div>
@@ -196,13 +198,13 @@ const TravelPostDetails = () => {
           variant="contained"
           color="primary"
           onClick={handleOpen}
-          component={Link} to={`/posts/${post.id}`}
         >
+
           See More
         </Button>
       </div>
-		</>
-	);
+    </>
+  );
 };
 
 export default TravelPostDetails;
