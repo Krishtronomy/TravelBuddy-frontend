@@ -20,7 +20,7 @@ const Travels = () => {
 
   return (
     <>
-      <h1>Travels page</h1>
+      <div className="head-text">Travels page</div>
       {loggedInUser && (
       <div className="buttonDiv">
         <NewPost />
@@ -33,7 +33,7 @@ const Travels = () => {
       </div>
       )}
 
-      <div>
+      <div className="post__container">
         <div>{error && error}</div>
         {loading && <div> Loading... </div>}
         {postsList && (
