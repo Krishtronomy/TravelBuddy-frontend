@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useGlobalState } from "../../utils/stateContext";
 import placeholder from "./placeholder.jpg";
 import postAPI from "../../config/api";
@@ -105,81 +105,101 @@ const TravelPostDetails = ({id}) => {
       });
     setEditSuccess(false);
   };
-
-  // // Set Modal state
+  
+  // Set Modal state
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  return (
-    <>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          disableScrollLock
-        >
-          <Box sx={style}>
-            <div className="create">
-              {deleteSuccess && <p>{deleteSuccess}</p>}
-              <h1>{post.title} </h1>
-              {!post.image && (
-                <img src={placeholder} width="400" height="400" />
-              )}
-              {post.image && <img src={post.image} width="400" height="400" />}
-              <h2>Description:</h2>
-              <h3>{post.description}</h3>
-              <h5>Created by:</h5>
-              <b>{post.author}</b>
-              <p>{date}</p>
-              {post.author == loggedInUser && (
-                <div>
-                  <button onClick={editClick}>Edit</button>
-                  <button onClick={() => setTriggerDelete(true)}>Delete</button>
-                  {edit && (
-                    <form
-                      form="editform"
-                      className="create"
-                      onSubmit={handleEditSubmit}
-                    >
-                      <label>Title:</label>
-                      <input
-                        type="text"
-                        id="title"
-                        value={editForm.title}
-                        onChange={handleFormChange}
-                      />
-                      <label>Description:</label>
-                      <textarea
-                        type="text"
-                        id="description"
-                        value={editForm.description}
-                        onChange={handleFormChange}
-                      />
-                      <button onClick={() => setEdit(false)}>Cancel</button>
-                      <button>Update</button>
-                    </form>
-                  )}
-                  {triggerDelete && (
-                    <div>
-                      <p>Are you sure you want to delete this?</p>
-                      <button onClick={() => setTriggerDelete(false)}>
-                        Cancel
-                      </button>
-                      <button onClick={handleDelete}>Yes</button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </Box>
-        </Modal>
-      </div>
+  
+  
+	return (
+		<>
+			<div>
+				<Modal
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="modal-modal-title"
+					aria-describedby="modal-modal-description"
+				>
+					<Box sx={style}>
+					  <div className="create">
+							{deleteSuccess && <p>{deleteSuccess}</p>}
+							<h1>{post.title} </h1>
+							{!post.image && <img src={placeholder} width="400" height="400"/>}
+							{post.image && <img src={post.image} width="400" height="400"/>}
+							<h2>Description:</h2>
+							<h3>{post.description}</h3>
+							<h5>Created by:</h5>
+							<b>{post.author}</b>
+							<p>{date}</p>
+							{post.author == loggedInUser && (
+								<div>
+									<button onClick={editClick}>Edit</button>
+									<button
+										onClick={() => setTriggerDelete(true)}
+									>
+										Delete
+									</button>
+									{edit && (
+										<form
+											form="editform"
+											className="create"
+											onSubmit={handleEditSubmit}
+										>
+											<label>Title:</label>
+											<input
+												type="text"
+												id="title"
+												value={editForm.title}
+												onChange={handleFormChange}
+											/>
+											<label>Description:</label>
+											<textarea
+												type="text"
+												id="description"
+												value={editForm.description}
+												onChange={handleFormChange}
+											/>
+											<button
+												onClick={() => setEdit(false)}
+											>
+												Cancel
+											</button>
+											<button>Update</button>
+										</form>
+									)}
+									{triggerDelete && (
+										<div>
+											<p>
+												Are you sure you want to delete
+												this?
+											</p>
+											<button
+												onClick={() =>
+													setTriggerDelete(false)
+												}
+											>
+												Cancel
+											</button>
+											<button onClick={handleDelete}>
+												Yes
+											</button>
+										</div>
+									)}
+								</div>
+							)}
+						</div>
+					</Box>
+				</Modal>
+			</div>
 
       <div className="buttonDiv">
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleOpen}
+        >
+
           See More
         </Button>
       </div>
