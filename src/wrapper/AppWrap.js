@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationDots } from "../components";
 
-
+// Set container wrapper with navdots
 const AppWrap = (Component, idName, classNames) =>
   function HOC() {
 

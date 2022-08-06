@@ -7,6 +7,8 @@ import Rating from '@material-ui/lab/Rating';
 import useStyles from "./styles";
 import mapStyles from '../../../mapStyles';
 
+
+// Google Map display using google-map-react library
 const Map = ({ coords, places, setCoords, setBounds, setChildClicked }) => {
     const matches = useMediaQuery('(min-width:600px)');
     const classes = useStyles();

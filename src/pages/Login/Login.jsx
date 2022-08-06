@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@material-ui/core";
 
+// Set modal styling
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -177,6 +178,7 @@ const Login = () => {
 				</form>
 			</div>
 
+{/* Trigger log in modal */}
 			{!loggedInUser && (
 				<div>
 					<Button
@@ -190,6 +192,7 @@ const Login = () => {
 			)}
 			<br></br>
 
+{/* Trigger sign up modal */}
 			{!loggedInUser && (
 				<div className="create">
 					<h3>OR</h3>

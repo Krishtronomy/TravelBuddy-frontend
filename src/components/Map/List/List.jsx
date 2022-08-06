@@ -4,6 +4,8 @@ import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, 
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles.js';
 
+
+// List with filter functionality for rating, type on 'explore' page
 const List = ({ places, type, setType, rating, setRating, childClicked, isLoading }) => {
     const [elRefs, setElRefs] = useState([]);
     const classes = useStyles();
