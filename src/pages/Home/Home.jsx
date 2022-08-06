@@ -6,6 +6,7 @@ import { Button, Box } from "@material-ui/core";
 import { Blob } from "react-blob";
 import "./Home.scss";
 
+// react-blob animation
 const Home = () => {
 	const BackgroundBlobRight = ({ style, props }) => (
 		<Blob
@@ -24,7 +25,8 @@ const Home = () => {
 			{...props}
 		/>
 	);
-
+    
+// react-blob animation
     const BackgroundBlobLeft = ({ style, props }) => (
 		<Blob
 			size="85vh"

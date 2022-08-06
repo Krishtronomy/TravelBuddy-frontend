@@ -15,6 +15,7 @@ import Rating from "@material-ui/lab/Rating";
 
 import useStyles from "./styles.js";
 
+// Location details displayed on card component
 const PlaceDetails = ({ place, selected, refProp }) => {
 	if (selected)
 		refProp?.current?.scrollIntoView({

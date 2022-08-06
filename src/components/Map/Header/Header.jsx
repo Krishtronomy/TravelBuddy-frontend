@@ -5,6 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
 
+// Header toolbar with search functionality for 'explore' page map
 const Header = ({ onPlaceChanged, onLoad }) => {
 	const classes = useStyles();
 

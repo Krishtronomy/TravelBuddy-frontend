@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 
-
+// Set modal styling
 const style = {
 	position: "absolute",
 	overflow: "scroll",

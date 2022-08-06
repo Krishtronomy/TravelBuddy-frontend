@@ -9,6 +9,8 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+
+// Set modal styling
 const style = {
 	position: "absolute",
 	top: "50%",

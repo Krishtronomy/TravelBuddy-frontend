@@ -33,6 +33,7 @@ const Explore = () => {
 	  setFilteredPlaces(filtered);
 	}, [rating]);
   
+	// utilise rapidapi traveladvisor endpoint to obtain places data
 	useEffect(() => {
 	  if (bounds) {
 		setIsLoading(true);
