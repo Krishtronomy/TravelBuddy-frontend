@@ -60,7 +60,6 @@ const TravelPostDetails = ({ id }) => {
 		setTriggerDelete(true);
 		if (triggerDelete) {
 			postAPI.delete(`/posts/${id}`).then((response) => {
-				console.log(response);
 				setTriggerDelete(false);
 				setDeleteSuccess("Post successfully deleted!");
 				navigate("/#travels");

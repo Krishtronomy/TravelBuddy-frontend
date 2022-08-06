@@ -135,7 +135,7 @@ const Login = () => {
 										sx={{ mt: 2 }}
 									>
 										<TextField
-											id="standard-basic"
+											id="email"
 											label="Email"
 											variant="standard"
 											type="email"
@@ -145,7 +145,7 @@ const Login = () => {
 											sx={{ m: 2 }}
 										/>
 										<TextField
-											id="standard-basic"
+											id="password"
 											label="Password"
 											variant="standard"
 											type="password"
