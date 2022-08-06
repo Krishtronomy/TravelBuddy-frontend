@@ -65,7 +65,6 @@ const Profile = () => {
   //   Captures image uploaded into file input field
   const handleImageChange = (event) => {
     setImage({ image: event.target.files[0] });
-    console.log({ image: event.target.files[0] });
   };
 
   // Sets the headers for when making requests to the API

@@ -29,15 +29,21 @@ const NewPost = () => {
 	const navigate = useNavigate();
 	const { dispatch } = useGlobalState();
 	const [postRating, setPostRating] = useState(null);
+	const [successMessage, setSuccessMessage] = useState(false)
+	const [createPostError,setcreatePostError] = useState(false)
+	const [postTitleError, setPostTitleError] = useState(false)
+	const [postDescriptionError, setPostDescriptionError] = useState(false)
 
 	// Handle title change via user input
 	const handleTitleChange = (event) => {
 		setTitle(event.target.value);
+		setPostTitleError(false)
 	};
 
 	// Handle description change via user input
 	const handleDescriptionChange = (event) => {
 		setDescription(event.target.value);
+		setPostDescriptionError(false)
 	};
 // Handle image uploaded
 	const handleImageChange = (event) => {
@@ -69,10 +75,25 @@ const NewPost = () => {
 				type: "addPost",
 				data: response.data,
 			});
-		});
+			setSuccessMessage("Post created successfully!")
+			setIsLoading(false);
+			setcreatePostError(false)
+			cleanForm();
+		})
+		.catch((error) => {
+			setIsLoading(false)
+          if (error.response.data.title == "can't be blank") {
+            setPostTitleError("Title can't be blank");
+          } 
+		  if(error.response.data.description == "can't be blank"){
+            setPostDescriptionError("Description can't be blank");
+          } 
+		  if ((error.response.data)){
+			setcreatePostError("An Error occurred, please try again")
+		  }
 
-		setIsLoading(false);
-		cleanForm();
+        });
+
 	};
 
 	// Clean form after submitting
@@ -81,6 +102,8 @@ const NewPost = () => {
 		setDescription("");
 		setImage(null);
 		setPostRating(null);
+		setcreatePostError(false)
+		
 	};
 
 	// // Set Modal state
@@ -168,6 +191,10 @@ const NewPost = () => {
 											Submitting Post...
 										</Button>
 									)}
+									{successMessage && <p>{successMessage}</p>}
+									{postTitleError && <p style={{color:"red"}}>{postTitleError}</p>}
+									{postDescriptionError && <p style={{color:"red"}}>{postDescriptionError}</p>}
+									{createPostError && <p style={{color:"red"}}>{createPostError}</p>}
 								</Typography>
 							</Box>
 						</Modal>
