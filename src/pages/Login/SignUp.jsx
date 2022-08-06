@@ -41,7 +41,6 @@ const SignUp = () => {
 			...formData,
 			[event.target.id]: event.target.value,
 		});
-    console.log(event.target.value);
 	};
 
   // Handles form submission
